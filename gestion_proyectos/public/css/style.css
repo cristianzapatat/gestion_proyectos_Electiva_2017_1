@@ -13,6 +13,9 @@ html, body{
 .registry{
   width: 40%;
 }
+.login{
+  width: 30%;
+}
 .title-panel-size{
   font-size: 1.8em;
 }

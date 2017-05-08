@@ -3,18 +3,41 @@
 
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Login</title>
+  <script src="/bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body>
-  <h5>{{error}}</h5>
-  <form class="" action="/login" method="post">
-    <label for="user">Digite su Usuario</label><br>
-    <input type="email" name="user" value="{{user}}" required><br>
-    <label for="pass">Digite su Contraseña</label><br>
-    <input type="password" name="pass" required><br><br>
-    <input type="submit" name="login" value="Ingresar">
-  </form>
+<body class="flex-centered">
+  <section class="panel panel-info login">
+    <div class="panel-heading flex-centered">
+      <h3 class="panel-title title-panel-size">Login</h3>
+    </div>
+    <div class="panel-body">
+      <form class="row" action="/login" method="post">
+        <div class="col-md-12 form-group">
+          <label for="user">Correo electrónico</label>
+          <input type="email" class="form-control" name="user" value="{{user}}" required>
+        </div>
+        <div class="col-md-12 form-group">
+          <label for="pass">Contraseña</label><br>
+          <input type="password" class="form-control" name="pass" required>
+        </div>
+        <div class="col-md-7">
+          <a href="/registry" class="btn btn-link btn-flat">Registrarme</a>
+        </div>
+        <div class="col-md-5">
+          <input class="btn btn-info btn-block btn-flat" type="submit" name="login" value="Ingresar">
+        </div>
+        <div class="col-md-12">
+          <label>{{error}}</label>
+        </div>
+      </form>
+    </div>
+
+  </section>
 </body>
 
 </html>
