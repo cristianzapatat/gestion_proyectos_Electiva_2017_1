@@ -8,27 +8,55 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.redirect('login')
+  if (req.session.user) {
+    res.render('index', {
+      user: req.session.user[0]
+    });
+  } else {
+    res.redirect('login')
+  }
 });
 
 router.get('/login', (req, res, next) => {
-  res.render('start/login', {
-    layout: false
-  });
+  if (req.session.user) {
+    res.redirect('/');
+  } else {
+    res.render('start/login', {
+      layout: false
+    });
+  }
 });
 
 router.get('/login/:mail', (req, res, next) => {
-  res.render('start/login', {
-    user: req.params.mail,
-    layout: false
-  });
+  if (req.session.user) {
+    res.redirect('/');
+  } else {
+    res.render('start/login', {
+      user: req.params.mail,
+      layout: false
+    });
+  }
 });
 
 router.post('/login', (req, res, next) => {
   var user = req.body.user;
   var pass = req.body.pass;
   if (util.isNotEmptyNotNull(user, pass)) {
-    //realizar el login
+    let data = [];
+    data.push(user);
+    data.push(pass);
+    db.execute(queries.login, data, (error, result) => {
+      if (error) {
+        responseLogin(res, user);
+      } else {
+        if (result.length > 0) {
+          req.session.user = result;
+          res.redirect('/');
+        } else {
+          responseLogin(res, user);
+        }
+      }
+    });
   } else {
     res.render('start/login', {
       user: user,
@@ -38,18 +66,22 @@ router.post('/login', (req, res, next) => {
 });
 
 router.get('/registry', (req, res, next) => {
-  db.execute(queries.listTypeDocuments, (error, data) => {
-    let result = {};
-    result['documents'] = data;
-    db.execute(queries.listTypeUsers, (error, data) => {
-      result['users'] = data;
-      res.render('start/registry', {
-        result: result,
-        resultSTR: JSON.stringify(result),
-        layout: false
+  if (req.session.user) {
+    res.redirect('/');
+  } else {
+    db.execute(queries.listTypeDocuments, (error, data) => {
+      let result = {};
+      result['documents'] = data;
+      db.execute(queries.listTypeUsers, (error, data) => {
+        result['users'] = data;
+        res.render('start/registry', {
+          result: result,
+          resultSTR: JSON.stringify(result),
+          layout: false
+        });
       });
     });
-  });
+  }
 });
 
 router.post('/registry', (req, res, next) => {
@@ -101,6 +133,14 @@ function responseRegistry(res, msm, json, result, user) {
     resultSTR: result,
     error: msm,
     user: user,
+    layout: false
+  });
+}
+
+function responseLogin(res, user) {
+  res.render('start/login', {
+    user: user,
+    error: 'Verifique su información',
     layout: false
   });
 }

@@ -8,3 +8,7 @@ exports.listTypeUsers = "select id, description from type_user";
 
 //query para realizar el insert de un nuevo registro de usuario en la bd
 exports.insertUser = "insert into user set ?";
+
+//query para realizar el login
+exports.login = "select document, name, last_name, date, type_user, type_document, mail" +
+  " from user where mail = ? and password = ?"
