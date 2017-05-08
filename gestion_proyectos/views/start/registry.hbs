@@ -1,0 +1,47 @@
+<!DOCTYPE html5>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <h3>Registro Usuario</h3><br>
+  <h5>{{error}}</h5>
+  <hr>
+  <form class="" action="/registry" method="post">
+    <input type="hidden" name="resultSTR" value="{{resultSTR}}">
+    <label for="type_user">Seleccione tipo usuario</label><br>
+    <select class="" name="type_user" required>
+      {{#each result.users}}
+        <option value="{{id}}" {{#if select}}selected{{/if}}>{{description}}</option>
+      {{/each}}
+    </select><br>
+    <label for="type_document">Seleccione tipo documento</label><br>
+    <select class="" name="type_document" required>
+      {{#each result.documents}}
+        <option value="{{id}}" {{#if select}}selected{{/if}}>{{type}}</option>
+      {{/each}}
+    </select><br>
+    <label for="document">Número de Documento</label><br>
+    <input type="number" name="document" placeholder="Número de documento" required value="{{user.document}}"><br>
+    <label for="name">Nombre</label><br>
+    <input type="text" name="name" placeholder="Nombre" required value="{{user.name}}"><br>
+    <label for="last_name">Apellido</label><br>
+    <input type="text" name="last_name" placeholder="Apellido" required value="{{user.last_name}}"><br>
+    <label for="date">Fecha de Nacimiento</label><br>
+    <input type="date" name="date" required value="{{user.date}}">
+    <hr>
+    <label for="mail">Correo Electrónico</label><br>
+    <input type="email" name="mail" placeholder="Correo Electrónico" required value="{{user.mail}}"><br><br>
+    <label for="password">Ingrese su clave</label><br>
+    <input type="password" name="password" placeholder="Ingrese su clave" required><br>
+    <label for="repeat">Repita su clave</label><br>
+    <input type="password" name="repeat" placeholder="Repetir clave" required>
+    <hr>
+    <input type="submit" value="Registrarme">
+  </form>
+</body>
+
+</html>

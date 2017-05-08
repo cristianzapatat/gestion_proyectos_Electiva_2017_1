@@ -10,6 +10,8 @@ var session = require('express-session');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var db = require('./dao/db');
+
 var app = express();
 
 // view engine setup
@@ -60,5 +62,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+db.getConnection();
 
 module.exports = app;
