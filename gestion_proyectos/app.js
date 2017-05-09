@@ -10,6 +10,7 @@ var session = require('express-session');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var project = require('./routes/project');
+var position = require('./routes/position');
 
 var db = require('./dao/db');
 
@@ -46,6 +47,7 @@ app.use(session({
 app.use('/', index);
 app.use('/users', users);
 app.use('/project', project);
+app.use('/position', position);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -2,7 +2,8 @@
 SQLyog Community Edition- MySQL GUI v8.05 
 MySQL - 5.7.18-log : Database - gestion_proyectos
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
