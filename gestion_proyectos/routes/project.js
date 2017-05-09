@@ -35,7 +35,8 @@ router.get('/create', (req, res) => {
   } else {
     res.render('project/createEdit', {
       url: 'create',
-      action: 'Crear'
+      action: 'Crear',
+      color: 'success'
     });
   }
 });
@@ -101,6 +102,7 @@ router.get('/edit/:id', (req, res) => {
               res.render('project/createEdit', {
                 url: 'edit',
                 action: 'Editar',
+                color: 'warning',
                 project: data[0]
               });
             } else {
