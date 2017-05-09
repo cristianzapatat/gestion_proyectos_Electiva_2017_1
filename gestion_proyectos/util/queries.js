@@ -36,7 +36,11 @@ exports.deleteProject = "delete from project where user = ? and id = ?"
 //-----------------------------------Cargos-------------------------------------
 
 //query para listar todos los cargos que a creado un director
-exports.listPositionByUser = "";
+exports.listPositionByUser = "SELECT c.id, c.name, c.project, p.name AS project_name," +
+  " c.description, c.schedule, c.salary FROM POSITION c JOIN project p ON c.project = p.id " +
+  "WHERE p.user = ?";
 
 //query para listar los cargos creados para un proyecto
-exports.listPositionByProject = "";
+exports.listPositionByProject ="SELECT c.id, c.name, c.project, p.name AS project_name," +
+  " c.description, c.schedule, c.salary FROM POSITION c JOIN project p ON c.project = p.id " +
+  "WHERE p.user = ? and c.project = ?";
