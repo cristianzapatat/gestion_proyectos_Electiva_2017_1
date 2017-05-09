@@ -10,5 +10,33 @@ exports.listTypeUsers = "select id, description from type_user";
 exports.insertUser = "insert into user set ?";
 
 //query para realizar el login
-exports.login = "select document, name, last_name, date, type_user, type_document, mail" +
+exports.login = "select id, document, name, last_name, date, type_user, type_document, mail" +
   " from user where mail = ? and password = ?"
+
+//-----------------------------------Project------------------------------------
+
+//query para listar los projectos de un usuario.
+exports.listProjectByUser = "SELECT id, user, name, DATE_FORMAT(START,'%Y-%m-%d') AS start," +
+  " DATE_FORMAT(END,'%Y-%m-%d') AS end, stage FROM project where user = ?";
+
+//query para crear un proyecto
+exports.createProject = "insert into project set ?";
+
+//query para obtener un proyectos
+exports.selectProject = "select id, user, name, DATE_FORMAT(START,'%Y-%m-%d') AS start," +
+  "DATE_FORMAT(END,'%Y-%m-%d') AS end, stage from project where id = ?";
+
+//query para actualizar un projecto
+exports.editProject = "update project set name = ?, start = ?, end = ?, stage = ? " +
+  "where id = ? and user = ?";
+
+//query para eliminar un projecto
+exports.deleteProject = "delete from project where user = ? and id = ?"
+
+//-----------------------------------Cargos-------------------------------------
+
+//query para listar todos los cargos que a creado un director
+exports.listPositionByUser = "";
+
+//query para listar los cargos creados para un proyecto
+exports.listPositionByProject = "";

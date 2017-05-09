@@ -1,0 +1,18 @@
+<h3>{{error}}</h3>
+<form class="" action="/project/{{url}}" method="post">
+  <input type="hidden" name="id" value="{{project.id}}">
+  <label for="name">Nombre</label><br>
+  <input type="text" name="name" value="{{project.name}}" required><br>
+  <label for="start">Inicio</label><br>
+  <input type="date" name="start" value="{{project.start}}" required><br>
+  <label for="end">Fin</label><br>
+  <input type="date" name="end" value="{{project.end}}" required><br>
+  <label for="stage">Etapa</label><br>
+  <select class="" name="stage" required>
+    <option value="0% – 25%" {{#if project.cero}}selected{{/if}}>0% – 25%</option>
+    <option value="25% - 50%" {{#if project.uno}}selected{{/if}}>25% - 50%</option>
+    <option value="50% - 75%" {{#if project.dos}}selected{{/if}}>50% - 75%</option>
+    <option value="75% - 100%" {{#if project.tres}}selected{{/if}}>75% - 100%</option>
+  </select><br><br>
+  <input type="submit" name="submit" value="{{action}}">
+</form>

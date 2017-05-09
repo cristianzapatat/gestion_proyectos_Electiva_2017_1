@@ -1,0 +1,19 @@
+<h3>{{error}}</h3>
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Inicio</th>
+    <th>Fin</th>
+    <th>Etapa</th>
+  </tr>
+  {{#each projects}}
+    <tr>
+      <td>{{name}}</td>
+      <td>{{start}}</td>
+      <td>{{end}}</td>
+      <td>{{stage}}</td>
+      <td><a href="/project/edit/{{id}}">Editar</a></td>
+      <td><a href="/project/delete/{{id}}">Eliminar</a></td>
+    </tr>
+  {{/each}}
+</table>
