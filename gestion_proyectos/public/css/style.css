@@ -19,6 +19,20 @@ html, body{
 .title-panel-size{
   font-size: 1.8em;
 }
+.full-height{
+  height: 100%;
+}
+th, td{
+  text-align: center;
+}
+.list-buttons{
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
 hr {
     height: 1px;
     background-color:rgba(158, 158, 158, 0.1);

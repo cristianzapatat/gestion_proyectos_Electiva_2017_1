@@ -1,0 +1,37 @@
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img style="border-radius: 50%;" src="/img/user.jpg" class="user-image" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>German Donoso</p>
+                <a class="seleccionable" onclick="window.location.href='Controllers/logout.php';"><i class="fa fa-circle text-success"></i> Salir</a>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="header">Opciones de navegación</li>
+            <!--<li class="active">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Inicio</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+            </li>-->
+            <li class="treeview">
+                <a href="/project/list">
+                    <i class="fa fa-university"></i>
+                    <span>Proyectos</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/project/create"><i class="fa fa-circle-o"></i>Registrar</a></li>
+                    <li><a href="/project/list"><i class="fa fa-circle-o"></i>Listar</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</aside>
