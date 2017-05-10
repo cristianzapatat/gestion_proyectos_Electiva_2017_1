@@ -18,11 +18,13 @@ router.get('/list', (req, res, next) => {
     db.execute(queries.listProjectByUser, array, (error, data) => {
       if (error) {
         res.render('project/list', {
-          error: 'No se logro cargar los proyectos'
+          error: 'No se logro cargar los proyectos',
+          user: req.session.user[0]
         });
       } else {
         res.render('project/list', {
-          projects: data
+          projects: data,
+          user: req.session.user[0]
         });
       }
     });
@@ -36,7 +38,8 @@ router.get('/create', (req, res) => {
     res.render('project/createEdit', {
       url: 'create',
       action: 'Crear',
-      color: 'success'
+      color: 'success',
+      user: req.session.user[0]
     });
   }
 });
@@ -67,7 +70,8 @@ router.post('/create', (req, res) => {
         error: 'Complete el formulario',
         action: 'Crear',
         color: 'success',
-        url: 'create'
+        url: 'create',
+        user: req.session.user[0]
       });
     }
   }
@@ -106,7 +110,8 @@ router.get('/edit/:id', (req, res) => {
                 url: 'edit',
                 action: 'Editar',
                 color: 'warning',
-                project: data[0]
+                project: data[0],
+                user: req.session.user[0]
               });
             } else {
               res.redirect('/');

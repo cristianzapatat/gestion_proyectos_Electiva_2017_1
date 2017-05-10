@@ -25,7 +25,8 @@ router.get('/list', (req, res) => {
           } else {
             res.render('charges/list', {
               projects: result,
-              charges: data
+              charges: data,
+              user: req.session.user[0]
             })
           }
         });
@@ -65,7 +66,8 @@ router.get('/list/:id', (req, res) => {
                     }
                     res.render('charges/list', {
                       projects: result,
-                      charges: data
+                      charges: data,
+                      user: req.session.user[0]
                     })
                   }
                 });
@@ -97,12 +99,14 @@ router.get('/create', (req, res) => {
             projects: data,
             color: 'success',
             action: 'Crear',
-            url: 'create'
+            url: 'create',
+            user: req.session.user[0]
           });
         } else {
           res.render('charges/createEdit', {
             visible: true,
-            action: 'Crear'
+            action: 'Crear',
+            user: req.session.user[0]
           });
         }
       }
@@ -136,7 +140,8 @@ router.post('/create', (req, res) => {
         error: 'Complete el formulario',
         action: 'Crear',
         color: 'success',
-        url: 'create'
+        url: 'create',
+        user: req.session.user[0]
       });
     }
   }
@@ -177,7 +182,8 @@ router.get('/edit/:id', (req, res) => {
                       color: 'warning',
                       url: 'edit',
                       charge: data[0],
-                      projects: result
+                      projects: result,
+                      user: req.session.user[0]
                     });
                   } else {
                     res.redirect('/');

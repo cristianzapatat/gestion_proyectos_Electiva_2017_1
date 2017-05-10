@@ -10,8 +10,8 @@ exports.listTypeUsers = "select id, description from type_user";
 exports.insertUser = "insert into user set ?";
 
 //query para realizar el login
-exports.login = "select id, document, name, last_name, date, type_user, type_document, mail" +
-  " from user where mail = ? and password = ?"
+exports.login = "select u.id as id, u.document, u.name, u.last_name, u.date, u.type_user, u.type_document, u.mail, t.description as rol,IF(u.type_user=1,true,false) as state" +
+  " from user u join type_user t on u.type_user=t.id where mail = ? and password = ?";
 
 //-----------------------------------Project------------------------------------
 
