@@ -45,3 +45,9 @@ hr {
     margin-bottom: 10px;
     width: 100%;
 }
+.float-select{
+  width: 20%;
+  position: absolute;
+  left: 20%;
+  top: 25%;
+}

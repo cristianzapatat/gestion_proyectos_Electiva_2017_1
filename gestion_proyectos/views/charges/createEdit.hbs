@@ -9,8 +9,11 @@
 </section>
 <hr>
 <section class="content">
-  <form class="row flex-centered" action="/project/{{url}}" method="post">
+  <form class="row flex-centered" style="flex-direction:column;"action="/project/{{url}}" method="post">
     <input type="hidden" name="id" value="{{project.id}}">
+    <div class="col-md-8 row">
+      <label style="color:#af0909; font-size:1.8em;">No existen proyectos para asignar cargos.</label>
+    </div>
     <div class="col-md-8 row">
       <div class="col-md-6 form-group">
         <label for="project">Proyecto</label>
