@@ -47,7 +47,8 @@ router.post('/login', (req, res, next) => {
     data.push(pass);
     db.execute(queries.login, data, (error, result) => {
       if (error) {
-        responseLogin(res, user);
+        res.end();
+        res.redirect('/');
       } else {
         if (result.length > 0) {
           req.session.user = result;
@@ -84,6 +85,26 @@ router.get('/registry', (req, res, next) => {
   }
 });
 
+router.get('/registry/:error', (req, res) => {
+  if (req.session.user) {
+    res.redirect('/');
+  } else {
+    db.execute(queries.listTypeDocuments, (error, data) => {
+      let result = {};
+      result['documents'] = data;
+      db.execute(queries.listTypeUsers, (error, data) => {
+        result['users'] = data;
+        res.render('start/registry', {
+          result: result,
+          resultSTR: JSON.stringify(result),
+          layout: false,
+          error: req.params.error
+        });
+      });
+    });
+  }
+});
+
 router.post('/registry', (req, res, next) => {
   let result = req.body.resultSTR;
   let json = JSON.parse(result);
@@ -107,7 +128,8 @@ router.post('/registry', (req, res, next) => {
   } else {
     db.execute(queries.insertUser, user, (error, data) => {
       if (error) {
-        responseRegistry(res, 'Registro incorrecto\nVerifique sus datos', json, result, user);
+        res.end();
+        res.redirect('/registry/Error en el registro');
       } else {
         res.redirect('login/' + user.mail);
       }

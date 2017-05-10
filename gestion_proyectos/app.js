@@ -22,7 +22,8 @@ app.set('views', path.join(__dirname, 'views'));
 //Se asocia la página de masterPage
 app.engine('.hbs', exphbs({
   extname: '.hbs',
-  defaultLayout: 'master_page'
+  defaultLayout: 'master_page',
+  partialsDir: __dirname+'views/partials/'
 }));
 
 app.set('view engine', 'hbs');
