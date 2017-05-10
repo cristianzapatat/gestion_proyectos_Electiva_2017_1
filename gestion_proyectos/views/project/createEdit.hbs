@@ -33,11 +33,14 @@
           <option value="75% - 100%" {{#if project.tres}}selected{{/if}}>75% - 100%</option>
         </select>
       </div>
-      <div class="col-md-8">
-        <label>{{error}}</label>
+      <div class="col-md-6">
+        <a href="/project/list" type="buttom"class="btn btn-flat btn-block btn-info">Cancelar</a>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color}}"value="{{action}}">
+      </div>
+      <div class="col-md-12">
+        <label>{{error}}</label>
       </div>
     </div>
   </form>

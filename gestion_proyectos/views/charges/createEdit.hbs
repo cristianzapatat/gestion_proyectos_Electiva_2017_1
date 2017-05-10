@@ -44,8 +44,11 @@
           <label for="description">Descripción del cargo</label>
           <textarea name="description" class="form-control text-area" rows="8" placeholder="Descripción del cargo" value="" required>{{charge.description}}</textarea>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-4">
           <label>{{error}}</label>
+        </div>
+        <div class="col-md-4">
+          <a href="/project/list" type="buttom"class="btn btn-flat btn-block btn-info">Cancelar</a>
         </div>
         <div class="col-md-4">
           <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color}}" value="{{action}}">
