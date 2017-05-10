@@ -47,3 +47,15 @@ exports.listPositionByProject = "SELECT c.id, c.name, c.project, p.name AS proje
 
 //query para realizar el insert de un cargo
 exports.crearPosition = "insert into position set ?";
+
+//seleccionar un cargo
+exports.selectCharge = "SELECT c.id, c.name, c.project, p.name AS project_name," +
+  " c.description, c.schedule, c.salary, p.user as user FROM POSITION c JOIN project p ON c.project = p.id " +
+  "WHERE p.user = ? and c.id = ?";
+
+//eliminar un cargo
+exports.deleteCharge = "delete from position where id = ?";
+
+//editar un cargo
+exports.editPosition = "update position set name = ?, project = ?, schedule = ?, salary = ?, description = ?" +
+  " where id = ?";

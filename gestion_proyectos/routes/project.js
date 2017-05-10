@@ -137,12 +137,7 @@ router.post('/edit', (req, res) => {
         }
       });
     } else {
-      res.render('project/createEdit', {
-        error: 'Complete el formulario',
-        action: 'Editar',
-        color: 'warning',
-        url: 'edit'
-      })
+      res.redirect('/project/list');
     }
   }
 });

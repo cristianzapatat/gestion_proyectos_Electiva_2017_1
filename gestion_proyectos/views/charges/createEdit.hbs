@@ -21,7 +21,7 @@
           <label for="project">Proyecto</label>
           <select class="form-control" name="project" required>
           {{#each projects}}
-          <option value="{{id}}">{{name}}</option>
+          <option value="{{id}}" {{#if select}}selected{{/if}}>{{name}}</option>
           {{/each}}
         </select>
         </div>
@@ -38,11 +38,11 @@
         </div>
         <div class="col-md-6 form-group">
           <label for="salary">Salario del cargo</label>
-          <input type="number" name="salary" class="form-control" value="" required placeholder="Salario del cargo">
+          <input type="number" name="salary" class="form-control" value="{{charge.salary}}" required placeholder="Salario del cargo">
         </div>
         <div class="col-md-12 form-group">
           <label for="description">Descripción del cargo</label>
-          <textarea name="description" class="form-control text-area" rows="8" placeholder="Descripción del cargo" value="" required></textarea>
+          <textarea name="description" class="form-control text-area" rows="8" placeholder="Descripción del cargo" value="" required>{{charge.description}}</textarea>
         </div>
         <div class="col-md-8">
           <label>{{error}}</label>
