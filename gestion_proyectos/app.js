@@ -48,7 +48,7 @@ app.use(session({
 app.use('/', index);
 app.use('/users', users);
 app.use('/project', project);
-app.use('/position', position);
+app.use('/charges', position);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

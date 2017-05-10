@@ -31,17 +31,17 @@
           </tr>
         </thead>
         <tbody>
-          {{#each projects}}
+          {{#each charges}}
             <tr>
               <td>{{name}}</td>
-              <td>{{start}}</td>
-              <td>{{end}}</td>
-              <td>{{name}}</td>
-              <td>{{stage}}</td>
+              <td>{{schedule}}</td>
+              <td>{{salary}}</td>
+              <td>{{project_name}}</td>
+              <td>{{description}}</td>
               <td style="width: 120px;">
                 <ul class="list-buttons">
                   <li>
-                    <a href="/project/edit/{{id}}" class="btn btn-warning btn-block">
+                    <a href="/charges/edit/{{id}}" class="btn btn-warning btn-block">
                       <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                   </li>
@@ -73,7 +73,7 @@
                         <button type="button" class="btn btn-block btn-flat btn-success" data-dismiss="modal">Cancelar</button>
                       </div>
                       <div class="col-md-3">
-                        <a type="button" class="btn btn-block btn-flat btn-danger" href="/project/delete/{{id}}">Eliminar</a>
+                        <a type="button" class="btn btn-block btn-flat btn-danger" href="/charges/delete/{{id}}">Eliminar</a>
                       </div>
                     </div>
                   </div>
