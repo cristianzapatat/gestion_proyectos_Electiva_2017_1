@@ -1,7 +1,12 @@
-<section class="content-header">
+<section class="content-header" style="position: relative;">
     <h1>
         <b>Lista de cargos</b>
     </h1>
+    <select class="form-control float-select" name="project" required>
+      <option value="0" {{#if project.cero}}selected{{/if}}>Proyectos</option>
+      <option value="D" {{#if project.cero}}selected{{/if}}>Diurno</option>
+      <option value="N" {{#if project.uno}}selected{{/if}}>Nocturno</option>
+    </select>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-tasks"></i>Cargos</a></li>
         <li class="active">Listar</li>
@@ -15,10 +20,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-1">
-
-    </div>
-    <div class="col-md-10">
+    <div class="col-md-12">
       <table class="table table-striped table-condensed table-hover table-bordered">
         <thead>
           <tr>
