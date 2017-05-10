@@ -41,6 +41,9 @@ exports.listPositionByUser = "SELECT c.id, c.name, c.project, p.name AS project_
   "WHERE p.user = ?";
 
 //query para listar los cargos creados para un proyecto
-exports.listPositionByProject ="SELECT c.id, c.name, c.project, p.name AS project_name," +
+exports.listPositionByProject = "SELECT c.id, c.name, c.project, p.name AS project_name," +
   " c.description, c.schedule, c.salary FROM POSITION c JOIN project p ON c.project = p.id " +
   "WHERE p.user = ? and c.project = ?";
+
+//query para realizar el insert de un cargo
+exports.crearPosition = "insert into position set ?";

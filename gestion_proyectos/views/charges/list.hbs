@@ -1,17 +1,17 @@
 <section class="content-header" style="position: relative;">
-    <h1>
+  <h1>
         <b>Lista de cargos</b>
     </h1>
-    <select class="form-control float-select" name="project" required>
+  <select class="form-control float-select" name="project" required>
       <option value="-1">Todos</option>
       {{#each projects}}
-      <option value="{{id}}">{{name}}</option>
+      <option value="{{id}}" {{#if select}}selected{{/if}}>{{name}}</option>
       {{/each}}
     </select>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-tasks"></i>Cargos</a></li>
-        <li class="active">Listar</li>
-    </ol>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-tasks"></i>Cargos</a></li>
+    <li class="active">Listar</li>
+  </ol>
 </section>
 <hr>
 <section class="content">
@@ -90,16 +90,14 @@
   </div>
 </section>
 <script type="text/javascript">
-$(function(){
+  $(function() {
     // bind change event to select
-    $('.float-select').on('change', function () {
-      alert($('.float-select').val());
-        var url = '/charges/list/'+$('.float-select').val(); // get selected value
-        console.log(url);
-        if (url) { // require a URL
-            window.location = url; // redirect
-        }
-        return false;
+    $('.float-select').on('change', function() {
+      var url = '/charges/list/' + $('.float-select').val(); // get selected value
+      if (url) { // require a URL
+        window.location = url; // redirect
+      }
+      return false;
     });
   });
 </script>

@@ -9,8 +9,8 @@
 </section>
 <hr>
 <section class="content">
-  <form class="row flex-centered" action="/project/{{url}}" method="post">
-    <input type="hidden" name="id" value="{{project.id}}">
+  <form class="row flex-centered" action="/charges/{{url}}" method="post">
+    <input type="hidden" name="id" value="{{charge.id}}">
     {{#if visible}}
       <div class="col-md-8 row">
         <label style="color:#af0909; font-size:1.8em;">No existen proyectos para asignar cargos.</label>
@@ -27,13 +27,13 @@
         </div>
         <div class="col-md-6 form-group">
           <label for="name">Nombre del cargo</label>
-          <input type="text" class="form-control" name="name" value="{{project.name}}" required placeholder="Nombre del cargo">
+          <input type="text" class="form-control" name="name" value="{{charge.name}}" required placeholder="Nombre del cargo">
         </div>
         <div class="col-md-6 form-group">
           <label for="schedule">Horario del cargo</label>
           <select class="form-control" name="schedule" required>
-          <option value="D" {{#if project.cero}}selected{{/if}}>Diurno</option>
-          <option value="N" {{#if project.uno}}selected{{/if}}>Nocturno</option>
+          <option value="Diurno" {{#if charge.Diurno}}selected{{/if}}>Diurno</option>
+          <option value="Nocturno" {{#if charge.Nocturno}}selected{{/if}}>Nocturno</option>
         </select>
         </div>
         <div class="col-md-6 form-group">
@@ -42,8 +42,7 @@
         </div>
         <div class="col-md-12 form-group">
           <label for="description">Descripción del cargo</label>
-          <textarea name="description" class="form-control text-area" rows="8" placeholder="Descripción del cargo" value="" required>
-        </textarea>
+          <textarea name="description" class="form-control text-area" rows="8" placeholder="Descripción del cargo" value="" required></textarea>
         </div>
         <div class="col-md-8">
           <label>{{error}}</label>

@@ -64,8 +64,11 @@ router.post('/create', (req, res) => {
       });
     } else {
       res.render('project/createEdit', {
-        error: 'Complete el formulario'
-      })
+        error: 'Complete el formulario',
+        action: 'Crear',
+        color: 'success',
+        url: 'create'
+      });
     }
   }
 });
@@ -135,7 +138,10 @@ router.post('/edit', (req, res) => {
       });
     } else {
       res.render('project/createEdit', {
-        error: 'Complete el formulario'
+        error: 'Complete el formulario',
+        action: 'Editar',
+        color: 'warning',
+        url: 'edit'
       })
     }
   }
