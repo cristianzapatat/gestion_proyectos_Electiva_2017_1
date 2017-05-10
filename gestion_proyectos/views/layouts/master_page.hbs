@@ -22,93 +22,10 @@
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper full-height">
       <!--Header-->
-      <header class="main-header">
-        <a href="#" class="logo">
-          <span class="logo-mini"><b>G</b>P</span>
-          <span class="logo-lg"><b>Gestión</b> Proyectos</span>
-        </a>
-        <nav class="navbar navbar-static-top">
-          <a href="" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-          </a>
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <li class="dropdown user user-menu">
-                <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="/img/user.jpg" class="user-image" alt="User Image">
-                  <span class="hidden-xs">German Donoso</span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li class="user-header flex-centered" style="flex-direction:column">
-                    <img src="/img/user.jpg" class="user-image" alt="User Image">
-                    <p>
-                      German Donoso
-                      <small>Administrador</small>
-                    </p>
-                  </li>
-                  <li class="user-footer">
-                    <div class="pull-right">
-                      <a href="" class="btn btn-default btn-flat" onclick="window.location.href='Controllers/logout.php';">Salir</a>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
+      {{> header}}
       <!--Fin Header-->
       <!--Menu-->
-      <aside class="main-sidebar">
-          <section class="sidebar">
-              <div class="user-panel">
-                  <div class="pull-left image">
-                      <img style="border-radius: 50%;" src="/img/user.jpg" class="user-image" alt="User Image">
-                  </div>
-                  <div class="pull-left info">
-                      <p>German Donoso</p>
-                      <a class="seleccionable" onclick="window.location.href='Controllers/logout.php';"><i class="fa fa-circle text-success"></i> Salir</a>
-                  </div>
-              </div>
-              <ul class="sidebar-menu">
-                  <li class="header">Opciones de navegación</li>
-                  <!--<li class="active">
-                      <a href="#">
-                          <i class="fa fa-dashboard"></i> <span>Inicio</span>
-                          <span class="pull-right-container">
-                              <i class="fa fa-angle-left pull-right"></i>
-                          </span>
-                      </a>
-                  </li>-->
-                  <li class="treeview">
-                      <a href="/project/list">
-                          <i class="fa fa-university"></i>
-                          <span>Proyectos</span>
-                          <span class="pull-right-container">
-                              <i class="fa fa-angle-left pull-right"></i>
-                          </span>
-                      </a>
-                      <ul class="treeview-menu">
-                          <li><a href="/project/create"><i class="fa fa-circle-o"></i>Registrar</a></li>
-                          <li><a href="/project/list"><i class="fa fa-circle-o"></i>Listar</a></li>
-                      </ul>
-                  </li>
-                  <li class="treeview">
-                      <a href="/charges/list">
-                          <i class="fa fa-tasks"></i>
-                          <span>Cargos</span>
-                          <span class="pull-right-container">
-                              <i class="fa fa-angle-left pull-right"></i>
-                          </span>
-                      </a>
-                      <ul class="treeview-menu">
-                          <li><a href="/charges/create"><i class="fa fa-circle-o"></i>Registrar</a></li>
-                          <li><a href="/charges/list"><i class="fa fa-circle-o"></i>Listar</a></li>
-                      </ul>
-                  </li>
-              </ul>
-          </section>
-      </aside>
+      {{> menu}}
       <!--Fin Menu-->
       <div class="content-wrapper full-height">
         {{{body}}}

@@ -19,12 +19,20 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
+/*var hbs = exphbs.create({
+    // Specify helpers which are only registered on this instance.
+    helpers: {
+        session: function () {
+          return 'German Donoso';
+        }
+    }
+});*/
 //Se asocia la página de masterPage
-app.engine('.hbs', exphbs({
-  extname: '.hbs',
-  defaultLayout: 'master_page',
-  partialsDir: __dirname+'views/partials/'
-}));
+app.engine('.hbs', exphbs(
+        {extname: '.hbs',
+         defaultLayout: 'master_page',
+         layoutsDir: __dirname + '/views/layouts/',
+         partialsDir: __dirname + '/views/partials/'}));
 
 app.set('view engine', 'hbs');
 
