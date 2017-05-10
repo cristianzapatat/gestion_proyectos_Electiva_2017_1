@@ -3,9 +3,10 @@
         <b>Lista de cargos</b>
     </h1>
     <select class="form-control float-select" name="project" required>
-      <option value="0" {{#if project.cero}}selected{{/if}}>Proyectos</option>
-      <option value="D" {{#if project.cero}}selected{{/if}}>Diurno</option>
-      <option value="N" {{#if project.uno}}selected{{/if}}>Nocturno</option>
+      <option value="-1">Todos</option>
+      {{#each projects}}
+      <option value="{{id}}">{{name}}</option>
+      {{/each}}
     </select>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-tasks"></i>Cargos</a></li>

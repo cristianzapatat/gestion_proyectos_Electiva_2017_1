@@ -19,23 +19,6 @@ router.get('/list', (req, res) => {
       if (error) {
         res.redirect('/');
       } else {
-        res.render('charges/list', {
-          charges: data
-        })
-      }
-    });
-  }
-});
-
-router.get('/list', (req, res) => {
-  if (!req.session.user) {
-    res.redirect('/');
-  } else {
-    let array = [req.session.user[0].id];
-    db.execute(queries.listPositionByUser, array, (error, data) => {
-      if (error) {
-        res.redirect('/');
-      } else {
         db.execute(queries.listProjectByUser, array, (fail, result) => {
           if (fail) {
             res.redirect('/');
@@ -92,12 +75,15 @@ router.get('/create', (req, res) => {
       } else {
         if (data.length > 0) {
           res.render('charges/createEdit', {
-            visible: true,
-            projects: data
+            visible: false,
+            projects: data,
+            color: 'success',
+            action: 'Crear'
           });
         } else {
           res.render('charges/createEdit', {
-            visible: false
+            visible: true,
+            action: 'Crear'
           });
         }
       }

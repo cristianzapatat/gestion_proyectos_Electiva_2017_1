@@ -1,58 +1,57 @@
 <section class="content-header">
-    <h1>
+  <h1>
         <b>{{action}} cargos</b>
     </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-tasks"></i>Cargos</a></li>
-        <li class="active">{{action}}</li>
-    </ol>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-tasks"></i>Cargos</a></li>
+    <li class="active">{{action}}</li>
+  </ol>
 </section>
 <hr>
 <section class="content">
   <form class="row flex-centered" action="/project/{{url}}" method="post">
     <input type="hidden" name="id" value="{{project.id}}">
     {{#if visible}}
-    <div class="col-md-8 row">
-      <label style="color:#af0909; font-size:1.8em;">No existen proyectos para asignar cargos.</label>
-    </div>
+      <div class="col-md-8 row">
+        <label style="color:#af0909; font-size:1.8em;">No existen proyectos para asignar cargos.</label>
+      </div>
     {{else}}
-    <div class="col-md-8 row">
-      <div class="col-md-6 form-group">
-        <label for="project">Proyecto</label>
-        <select class="form-control" name="project" required>
-          <option value="0% – 25%" {{#if project.cero}}selected{{/if}}>0% – 25%</option>
-          <option value="25% - 50%" {{#if project.uno}}selected{{/if}}>25% - 50%</option>
-          <option value="50% - 75%" {{#if project.dos}}selected{{/if}}>50% - 75%</option>
-          <option value="75% - 100%" {{#if project.tres}}selected{{/if}}>75% - 100%</option>
+      <div class="col-md-8 row">
+        <div class="col-md-6 form-group">
+          <label for="project">Proyecto</label>
+          <select class="form-control" name="project" required>
+          {{#each projects}}
+          <option value="{{id}}">{{name}}</option>
+          {{/each}}
         </select>
-      </div>
-      <div class="col-md-6 form-group">
-        <label for="name">Nombre del cargo</label>
-        <input type="text" class="form-control" name="name" value="{{project.name}}" required placeholder="Nombre del cargo">
-      </div>
-      <div class="col-md-6 form-group">
-        <label for="schedule">Horario del cargo</label>
-        <select class="form-control" name="schedule" required>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="name">Nombre del cargo</label>
+          <input type="text" class="form-control" name="name" value="{{project.name}}" required placeholder="Nombre del cargo">
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="schedule">Horario del cargo</label>
+          <select class="form-control" name="schedule" required>
           <option value="D" {{#if project.cero}}selected{{/if}}>Diurno</option>
           <option value="N" {{#if project.uno}}selected{{/if}}>Nocturno</option>
         </select>
-      </div>
-      <div class="col-md-6 form-group">
-        <label for="salary">Salario del cargo</label>
-        <input type="number" name="salary" class="form-control" value="" required placeholder="Salario del cargo">
-      </div>
-      <div class="col-md-12 form-group">
-        <label for="description">Descripción del cargo</label>
-        <textarea name="description" class="form-control text-area" rows="8" placeholder="Descripción del cargo" value="" required>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="salary">Salario del cargo</label>
+          <input type="number" name="salary" class="form-control" value="" required placeholder="Salario del cargo">
+        </div>
+        <div class="col-md-12 form-group">
+          <label for="description">Descripción del cargo</label>
+          <textarea name="description" class="form-control text-area" rows="8" placeholder="Descripción del cargo" value="" required>
         </textarea>
+        </div>
+        <div class="col-md-8">
+          <label>{{error}}</label>
+        </div>
+        <div class="col-md-4">
+          <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color}}" value="{{action}}">
+        </div>
       </div>
-      <div class="col-md-8">
-        <label>{{error}}</label>
-      </div>
-      <div class="col-md-4">
-        <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color}}"value="{{action}}">
-      </div>
-    </div>
     {{/if}}
   </form>
 </section>
