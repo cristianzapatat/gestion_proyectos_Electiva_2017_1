@@ -89,3 +89,17 @@
     </div>
   </div>
 </section>
+<script type="text/javascript">
+$(function(){
+    // bind change event to select
+    $('.float-select').on('change', function () {
+      alert($('.float-select').val());
+        var url = '/charges/list/'+$('.float-select').val(); // get selected value
+        console.log(url);
+        if (url) { // require a URL
+            window.location = url; // redirect
+        }
+        return false;
+    });
+  });
+</script>
