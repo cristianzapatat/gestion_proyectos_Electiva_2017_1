@@ -81,4 +81,28 @@ router.get('/list/:id', (req, res) => {
   }
 });
 
+router.get('/create', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    let user = [req.session.user[0].id];
+    db.execute(queries.listProjectByUser, user, (error, data) => {
+      if (error) {
+        res.redirect('/');
+      } else {
+        if (data.length > 0) {
+          res.render('charges/createEdit', {
+            visible: true,
+            projects: data
+          });
+        } else {
+          res.render('charges/createEdit', {
+            visible: false
+          });
+        }
+      }
+    });
+  }
+});
+
 module.exports = router;
