@@ -25,7 +25,11 @@
       {{> header}}
       <!--Fin Header-->
       <!--Menu-->
-      {{> menu}}
+      {{#if user.state}}
+        {{> directivo}}
+      {{else}}
+        {{> integrante}}
+      {{/if}}
       <!--Fin Menu-->
       <div class="content-wrapper full-height">
         {{{body}}}

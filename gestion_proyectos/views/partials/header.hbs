@@ -11,17 +11,20 @@
       <ul class="nav navbar-nav">
         <li class="dropdown user user-menu">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">
-            <!--<img style="border-radius: 50%;" src="/img/Director.png" class="user-image" alt="User Image">-->
-            <img style="border-radius: 50%;" src="/img/Integrante.png" class="user-image" alt="User Image">
-            <span class="hidden-xs">German Donoso</span>
+            {{#if user.state}}
+              <img style="border-radius: 50%;" src="/img/Director.png" class="user-image" alt="User Image">
+            {{else}}
+              <img style="border-radius: 50%;" src="/img/Integrante.png" class="user-image" alt="User Image">
+            {{/if}}
+            <span class="hidden-xs">{{user.name}}</span>
           </a>
           <ul class="dropdown-menu">
             <li class="user-header flex-centered" style="flex-direction:column">
               <!--<img style="border-radius: 50%;" src="/img/Director.png" class="user-image" alt="User Image">-->
               <img style="border-radius: 50%;" src="/img/Integrante.png" class="user-image" alt="User Image">
               <p>
-                German Donoso
-                <small>Administrador</small>
+                {{user.name}}
+                <small>{{user.rol}}</small>
               </p>
             </li>
             <li class="user-footer">
