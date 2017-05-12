@@ -66,6 +66,15 @@ router.post('/login', (req, res, next) => {
   }
 });
 
+router.get('/logout', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    req.session.destroy();
+    res.redirect('/');
+  }
+});
+
 router.get('/registry', (req, res, next) => {
   if (req.session.user) {
     res.redirect('/');

@@ -6,7 +6,7 @@
             </div>
             <div class="pull-left info">
                 <p>{{user.name}}</p>
-                <a class="seleccionable" onclick="window.location.href='Controllers/logout.php';"><i class="fa fa-circle text-success"></i> Salir</a>
+                <a class="seleccionable" href="/logout"><i class="fa fa-circle text-success"></i> Salir</a>
             </div>
         </div>
         <ul class="sidebar-menu">
@@ -19,32 +19,6 @@
                     </span>
                 </a>
             </li>-->
-            <li class="treeview">
-                <a href="/project/list">
-                    <i class="fa fa-university"></i>
-                    <span>Proyectos</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="/project/create"><i class="fa fa-circle-o"></i>Registrar</a></li>
-                    <li><a href="/project/list"><i class="fa fa-circle-o"></i>Listar</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="/charges/list">
-                    <i class="fa fa-tasks"></i>
-                    <span>Cargos</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="/charges/create"><i class="fa fa-circle-o"></i>Registrar</a></li>
-                    <li><a href="/charges/list"><i class="fa fa-circle-o"></i>Listar</a></li>
-                </ul>
-            </li>
         </ul>
     </section>
 </aside>

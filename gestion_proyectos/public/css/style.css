@@ -54,3 +54,7 @@ hr {
   top: 25%;
   left: 20%;
 }
+
+.seleccionable{
+  cursor: pointer;
+}
