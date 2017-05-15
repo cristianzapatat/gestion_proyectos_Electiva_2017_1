@@ -20,7 +20,7 @@
           <label for="project">Proyecto</label>
           <select class="form-control" name="project" required>
           {{#each projects}}
-          <option value="{{id}}">{{name}}</option>
+          <option value="{{id}}" {{#if select}}selected{{/if}}>{{name}}</option>
           {{/each}}
         </select>
         </div>
@@ -34,7 +34,7 @@
       </div>
     {{/if}}
   </form>
-
+  <br>
   {{#if state}}
     <form class="row flex-centered" action="/member/{{url}}" method="post">
       {{#if err}}
@@ -58,8 +58,12 @@
             <label>Correo integrante</label><br>
             <label>{{member.mail}}</label>
           </div>
+          <div class="col-md-12 form-group">
+            <label>Proyecto</label><br>
+            <label>{{member.project_name}}</label>
+          </div>
           <div class="col-md-6">
-            <a href="/member/create/{{member.project}}" type="buttom" class="btn btn-flat btn-block btn-info">Cancelar</a>
+            <a href="/member/create" type="buttom" class="btn btn-flat btn-block btn-info">Cancelar</a>
           </div>
           <div class="col-md-6">
             <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color_action}}" value="{{action}}">

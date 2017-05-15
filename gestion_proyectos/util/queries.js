@@ -14,7 +14,7 @@ exports.login = "select u.id as id, u.document, u.name, u.last_name, u.date, u.t
   " from user u join type_user t on u.type_user=t.id where mail = ? and password = ?";
 
 //query para obtener un usuario tipo integrante
-exports.selectUser = "select name, last_name, mail, document from user where document = ? and type_user = 2";
+exports.selectUser = "select id, name, last_name, mail, document from user where document = ? and type_user = 2";
 //-----------------------------------Project------------------------------------
 
 //query para listar los projectos de un usuario.
@@ -77,8 +77,11 @@ exports.selectMember = "select m.id as id, u.name, u.last_name, u.mail, u.id as 
   "from member m join user u on m.user = u.id join project p on m.project = p.id where p.user = ? and m.id = ? ";
 
 //query para seleccionar un integrante por documentos
-exports.selectMemberByDocument = "select m.id as id, u.name, u.last_name, u.mail, u.id as id_user, p.user as user, p.id as project " +
+exports.selectMemberByDocument = "select m.id as id, u.name, u.last_name, u.mail, u.id as id_user, p.user as user, p.id as project, p.name as project_name " +
   "from member m join user u on m.user = u.id join project p on m.project = p.id where p.user = ? and u.document = ? and p.id = ?";
 
 //query para eliminar un miembro
 exports.deleteMember = "delete from member where id = ?";
+
+//query para inserta un integrante
+exports.addMember = "insert into member set ?";

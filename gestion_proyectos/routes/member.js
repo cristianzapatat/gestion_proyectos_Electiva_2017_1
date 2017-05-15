@@ -135,6 +135,45 @@ router.get('/delete/:id', (req, res) => {
   }
 });
 
+router.post('/delete', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let array = [req.session.user[0].id, req.body.id];
+      let validateCharge = util.isNotEmptyNotNull(array[0], array[1]);
+      if (validateCharge) {
+        db.execute(queries.selectMember, array, (error, data) => {
+          if (error) {
+            res.redirect('/');
+          } else {
+            if (data.length > 0) {
+              if (data[0].user == req.session.user[0].id) {
+                let ids = [array[1]];
+                db.execute(queries.deleteMember, ids, (error, req) => {
+                  if (error) {
+                    res.redirect('/');
+                  } else {
+                    res.redirect('/member/create');
+                  }
+                });
+              } else {
+                res.redirect('/');
+              }
+            } else {
+              res.redirect('/');
+            }
+          }
+        });
+      } else {
+        res.redirect('/');
+      }
+    }
+  }
+});
+
 router.get('/create', (req, res) => {
   if (!req.session.user) {
     res.redirect('/');
@@ -157,6 +196,34 @@ router.get('/create', (req, res) => {
           })
         }
       });
+    }
+  }
+});
+
+router.post('/create', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let array = [req.body.project, req.body.user];
+      let validate = util.isNotEmptyNotNull(array[0], array[1]);
+      if (validate) {
+        let member = {
+          project: array[0],
+          user: array[1]
+        }
+        db.execute(queries.addMember, member, (error, data) => {
+          if (error) {
+            res.redirect('/');
+          } else {
+            res.redirect('/member/create');
+          }
+        });
+      } else {
+        res.redirect('/member/create');
+      }
     }
   }
 });
@@ -190,7 +257,8 @@ router.post('/search', (req, res) => {
                     name: __data[0].name,
                     last_name: __data[0].last_name,
                     mail: __data[0].mail,
-                    project: __data[0].project
+                    project: __data[0].project,
+                    project_name: __data[0].project_name
                   }
                   res.render('members/create', {
                     user: req.session.user[0],
@@ -211,12 +279,20 @@ router.post('/search', (req, res) => {
                       res.redirect('/');
                     } else {
                       if (result.length > 0) {
+                        let project_name = "";
+                        for (let i = 0; i < data.length; i++) {
+                          if (parseInt(datas[2]) == data[i].id) {
+                            project_name = data[i].name;
+                            break;
+                          }
+                        }
                         let member = {
                           name: result[0].name,
                           last_name: result[0].last_name,
-                          project: array[2],
-                          id_user: result[0].document,
-                          mail: result[0].mail
+                          project: datas[2],
+                          id_user: result[0].id,
+                          mail: result[0].mail,
+                          project_name: project_name
                         }
                         res.render('members/create', {
                           user: req.session.user[0],
@@ -232,7 +308,7 @@ router.post('/search', (req, res) => {
                         })
                       } else {
                         for (let i = 0; i < data.length; i++) {
-                          if (array[2] == data[0].id) {
+                          if (parseInt(datas[2]) == data[i].id) {
                             data[i]['select'] = true;
                             break;
                           }
