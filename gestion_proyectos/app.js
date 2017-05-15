@@ -11,6 +11,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var project = require('./routes/project');
 var position = require('./routes/position');
+var member = require('./routes/member');
 
 var db = require('./dao/db');
 
@@ -28,11 +29,12 @@ app.set('views', path.join(__dirname, 'views'));
     }
 });*/
 //Se asocia la página de masterPage
-app.engine('.hbs', exphbs(
-        {extname: '.hbs',
-         defaultLayout: 'master_page',
-         layoutsDir: __dirname + '/views/layouts/',
-         partialsDir: __dirname + '/views/partials/'}));
+app.engine('.hbs', exphbs({
+  extname: '.hbs',
+  defaultLayout: 'master_page',
+  layoutsDir: __dirname + '/views/layouts/',
+  partialsDir: __dirname + '/views/partials/'
+}));
 
 app.set('view engine', 'hbs');
 
@@ -57,6 +59,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/project', project);
 app.use('/charges', position);
+app.use('/member', member);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
