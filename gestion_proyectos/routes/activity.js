@@ -81,11 +81,11 @@ router.get('/list/:id', (req, res) => {
                 }
               });
             } else {
-              res.redirect('/activities/list');
+              res.redirect('/activity/list');
             }
           });
         } else {
-          res.redirect('/activities/list');
+          res.redirect('/activity/list');
         }
       }
     }
@@ -121,7 +121,7 @@ router.get('/create', (req, res) => {
                     user: req.session.user[0]
                   });
                 } else {
-                  res.render('charges/createEdit', {
+                  res.render('activities/createEdit', {
                     visible: true,
                     action: 'Crear',
                     user: req.session.user[0]
@@ -130,7 +130,7 @@ router.get('/create', (req, res) => {
               }
             });
           } else {
-            res.render('charges/createEdit', {
+            res.render('activities/createEdit', {
               visible: true,
               action: 'Crear',
               user: req.session.user[0]
@@ -138,6 +138,178 @@ router.get('/create', (req, res) => {
           }
         }
       });
+    }
+  }
+});
+
+router.post('/create', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let array = [req.body.project, req.body.member, req.body.name, req.body.start, req.body.end, req.body.description];
+      let validate = util.isNotEmptyNotNull(array[0], array[1], array[2], array[3], array[4], array[5]);
+      if (validate) {
+        let activity = {
+          project: array[0],
+          member: array[1],
+          name: array[2],
+          start: array[3],
+          end: array[4],
+          description: array[5]
+        }
+        db.execute(queries.addActivity, activity, (error, data) => {
+          if (error) {
+            res.redirect('/');
+          } else {
+            res.redirect('/activity/list');
+          }
+        });
+      } else {
+        res.redirect('/activity/create');
+      }
+    }
+  }
+});
+
+router.get('/delete', (req, res) => {
+  res.redirect('/');
+});
+
+router.get('/delete/:id', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let array = [req.session.user[0].id, req.params.id];
+      let validate = util.isNotEmptyNotNull(array[0], array[1]);
+      if (validate) {
+        db.execute(queries.selectActivity, array, (error, data) => {
+          if (error) {
+            res.redirect('/');
+          } else {
+            if (data.length > 0) {
+              if (data[0].user_project == req.session.user[0].id) {
+                let ids = [array[1]];
+                db.execute(queries.deleteActivity, ids, (error, req) => {
+                  if (error) {
+                    res.redirect('/');
+                  } else {
+                    res.redirect('/activity/list');
+                  }
+                });
+              } else {
+                res.redirect('/');
+              }
+            } else {
+              res.redirect('/');
+            }
+          }
+        });
+      } else {
+        res.redirect('/');
+      }
+    }
+  }
+});
+
+router.get('/edit', (req, res) => {
+  res.redirect('/');
+})
+
+router.get('/edit/:id', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let user = [req.session.user[0].id];
+      db.execute(queries.listProjectByUser, user, (error, data) => {
+        if (error) {
+          res.redirect('/');
+        } else {
+          if (data.length > 0) {
+            db.execute(queries.listAllMembers, user, (error, member) => {
+              if (error) {
+                res.redirect('/');
+              } else {
+                if (member.length > 0) {
+                  let array = [user[0], req.params.id];
+                  db.execute(queries.selectActivity, array, (err, result) => {
+                    if (err) {
+                      res.redirect('/');
+                    } else {
+                      let activity = {
+                        id: result[0].id,
+                        name: result[0].name,
+                        description: result[0].description,
+                        start: result[0].start,
+                        end: result[0].end,
+                        project: result[0].project,
+                        member: result[0].member
+                      };
+                      res.render('activities/createEdit', {
+                        visible: false,
+                        projects: data,
+                        members: member,
+                        activity: activity,
+                        json: JSON.stringify(member),
+                        color: 'warning',
+                        action: 'Editar',
+                        url: 'edit',
+                        user: req.session.user[0]
+                      });
+                    }
+                  });
+                } else {
+                  res.render('activities/createEdit', {
+                    visible: true,
+                    action: 'Crear',
+                    user: req.session.user[0]
+                  });
+                }
+              }
+            });
+          } else {
+            res.render('activities/createEdit', {
+              visible: true,
+              action: 'Crear',
+              user: req.session.user[0]
+            });
+          }
+        }
+      });
+    }
+  }
+});
+
+router.post('/edit', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let array = [req.body.name, req.body.project, req.body.schedule, req.body.salary,
+        req.body.description, req.body.id
+      ];
+      let validateCharge = util.isNotEmptyNotNull(array[0], array[1], array[2], array[3], array[4], array[5]);
+      if (validateCharge) {
+        db.execute(queries.editPosition, array, (error, data) => {
+          if (error) {
+            res.redirect('/');
+          } else {
+            res.redirect('/activity/list');
+          }
+        });
+      } else {
+        res.redirect('/activity/list');
+      }
     }
   }
 });

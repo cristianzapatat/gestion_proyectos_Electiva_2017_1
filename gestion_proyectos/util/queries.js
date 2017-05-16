@@ -95,3 +95,13 @@ exports.listAllActivities = "select a.id, a.name, a.description, DATE_FORMAT(a.s
 //listar las actividades de un proyecto
 exports.listActivitiesByProject = "select a.id, a.name, a.description, DATE_FORMAT(a.start,'%Y-%m-%d') AS start, DATE_FORMAT(a.end,'%Y-%m-%d') AS end, a.project, a.member, p.name as project_name, CONCAT(u.name, ' ', u.last_name) as user_name " +
   "from activity a join project p on a.project = p.id join member m on a.member = m.id join user u on m.user = u.id where p.user = ? and p.id = ?";
+
+//select activity
+exports.selectActivity = "select a.id, a.name, a.description, DATE_FORMAT(a.start,'%Y-%m-%d') AS start, DATE_FORMAT(a.end,'%Y-%m-%d') AS end, a.project, a.member, p.name as project_name, CONCAT(u.name, ' ', u.last_name) as user_name, p.user as user_project " +
+  "from activity a join project p on a.project = p.id join member m on a.member = m.id join user u on m.user = u.id where p.user = ? and a.id = ?";
+
+//añadir una nueva actividades
+exports.addActivity = "insert into activity set ?";
+
+//eliminar una actividad
+exports.deleteActivity = "delete from activity where id = ?";

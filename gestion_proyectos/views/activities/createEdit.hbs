@@ -19,7 +19,7 @@
       <div class="col-md-8 row">
         <div class="col-md-6 form-group">
           <label for="project">Proyecto</label>
-          <select class="form-control" name="project" required id="select_project">
+          <select class="form-control" name="project" required id="project">
           {{#each projects}}
           <option value="{{id}}" {{#if select}}selected{{/if}}>{{name}}</option>
           {{/each}}
@@ -28,7 +28,7 @@
         <div class="col-md-6 form-group">
           <input type="hidden" name="json" id="json" value="{{json}}">
           <label for="member">Integrante</label>
-          <select class="form-control" name="member" id="select_member" required>
+          <select class="form-control" name="member" id="member" required>
           {{#each members}}
           <option value="{{id}}" {{#if select}}selected{{/if}}>{{user}}</option>
           {{/each}}
@@ -65,17 +65,21 @@
 </section>
 <script type="text/javascript">
   var json = JSON.parse($('#json').val());
-  console.log(json);
+  $('#member').empty();
+  var id = parseInt($('#project').val());
+  for (var i = 0; i < json.length; i++) {
+    if (id === json[i].id_project) {
+      $("#member").append(new Option(json[i].user, json[i].id));
+    }
+  }
   $(function() {
     // bind change event to select
-    $('#select_project').on('change', function() {
-      $('#select_member').empty();
-      var value = parseInt($('#select_project').val());
-      console.log(value);
+    $('#project').on('change', function() {
+      $('#member').empty();
+      var value = parseInt($('#project').val());
       for (var i = 0; i < json.length; i++) {
-        console.log(json[i].id_project);
         if (value === json[i].id_project) {
-          console.log('al');
+          $("#member").append(new Option(json[i].user, json[i].id));
         }
       }
     });
