@@ -65,11 +65,11 @@ exports.editPosition = "update position set name = ?, project = ?, schedule = ?,
 //-------------------------------------Members----------------------------------
 
 //query para listar todos los integrantes de los proyectos
-exports.listAllMembers = "select m.id as id, p.name as project, CONCAT(u.name, ' ', u.last_name) as user " +
+exports.listAllMembers = "select m.id as id, p.name as project, CONCAT(u.name, ' ', u.last_name) as user, u.document " +
   "from member m join project p on m.project = p.id join user u on m.user = u.id where p.user = ? order by p.name ASC, u.last_name ASC";
 
 //query para listar los miembros de un proyecto
-exports.listMemberByProject = "select m.id as id, p.name as project, CONCAT(u.name, ' ', u.last_name) as user " +
+exports.listMemberByProject = "select m.id as id, p.name as project, CONCAT(u.name, ' ', u.last_name) as user, u.document " +
   "from member m join project p on m.project = p.id join user u on m.user = u.id where p.user =  ? and p.id = ? order by u.last_name ASC";
 
 //query para seleccionar un integrante
@@ -85,3 +85,13 @@ exports.deleteMember = "delete from member where id = ?";
 
 //query para inserta un integrante
 exports.addMember = "insert into member set ?";
+
+//--------------------------Actividades----------------------------------------
+
+//listar todas las actividades.
+exports.listAllActivities = "select a.id, a.name, a.description, DATE_FORMAT(a.start,'%Y-%m-%d') AS start, DATE_FORMAT(a.end,'%Y-%m-%d') AS end, a.project, a.member, p.name as project_name, CONCAT(u.name, ' ', u.last_name) as user_name " +
+  "from activity a join project p on a.project = p.id join member m on a.member = m.id join user u on m.user = u.id where p.user = ?";
+
+//listar las actividades de un proyecto
+exports.listActivitiesByProject = "select a.id, a.name, a.description, DATE_FORMAT(a.start,'%Y-%m-%d') AS start, DATE_FORMAT(a.end,'%Y-%m-%d') AS end, a.project, a.member, p.name as project_name, CONCAT(u.name, ' ', u.last_name) as user_name " +
+  "from activity a join project p on a.project = p.id join member m on a.member = m.id join user u on m.user = u.id where p.user = ? and p.id = ?";

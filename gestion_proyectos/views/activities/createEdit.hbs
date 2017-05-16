@@ -1,0 +1,77 @@
+<script type="text/javascript">
+  console.log({{members}});
+  $(function() {
+    // bind change event to select
+    $('#select_project').on('change', function() {
+      var url = '/activity/list/' + $('.float-select').val(); // get selected value
+      if (url) { // require a URL
+        window.location = url; // redirect
+      }
+      return false;
+    });
+  });
+</script>
+<section class="content-header">
+  <h1>
+        <b>{{action}} Actividades</b>
+    </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-tasks"></i>Actividades</a></li>
+    <li class="active">{{action}}</li>
+  </ol>
+</section>
+<hr>
+<section class="content">
+  <form class="row flex-centered" action="/activity/{{url}}" method="post">
+    <input type="hidden" name="id" value="{{activity.id}}">
+    {{#if visible}}
+      <div class="col-md-8 row">
+        <label style="color:#af0909; font-size:1.8em;">No existen proyectos o integrantes para una Actividad.</label>
+      </div>
+    {{else}}
+      <div class="col-md-8 row">
+        <div class="col-md-6 form-group">
+          <label for="project">Proyecto</label>
+          <select class="form-control" name="project" required id="select_project">
+          {{#each projects}}
+          <option value="{{id}}" {{#if select}}selected{{/if}}>{{name}}</option>
+          {{/each}}
+        </select>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="member">Integrante</label>
+          <select class="form-control" name="member" required>
+          {{#each members}}
+          <option value="{{id}}" {{#if select}}selected{{/if}}>{{user}}</option>
+          {{/each}}
+        </select>
+        </div>
+        <div class="col-md-12 form-group">
+          <label for="name">Nombre de la Actividad</label>
+          <input type="text" class="form-control" name="name" value="{{activity.name}}" required placeholder="Nombre del cargo">
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="start">Inicio</label>
+          <input type="date" name="start" value="{{activity.start}}" class="form-control" required>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="end">Fin</label>
+          <input type="date" name="end" class="form-control" value="{{activity.end}}" required>
+        </div>
+        <div class="col-md-12 form-group">
+          <label for="description">Descripción de la actividad</label>
+          <textarea name="description" class="form-control text-area" rows="8" placeholder="Descripción de la actividad" required>{{activity.description}}</textarea>
+        </div>
+        <div class="col-md-4">
+          <label>{{error}}</label>
+        </div>
+        <div class="col-md-4">
+          <a href="/activitys/list" type="buttom" class="btn btn-flat btn-block btn-info">Cancelar</a>
+        </div>
+        <div class="col-md-4">
+          <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color}}" value="{{action}}">
+        </div>
+      </div>
+    {{/if}}
+  </form>
+</section>

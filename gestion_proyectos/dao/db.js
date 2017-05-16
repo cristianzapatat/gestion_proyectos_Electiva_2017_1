@@ -4,16 +4,15 @@ var mysql = require('mysql');
 
 var connection;
 
-/**
 var host = "localhost";
 var user = "root";
 var password = "root";
 var db = "gestion_proyectos";
-/**/
+/**
 var host = "sql10.freemysqlhosting.net";
 var user = "sql10173602";
 var password = "ksuMmkdDf1";
-var db = "sql10173602";
+var db = "sql10173602";*/
 
 function generateConnection() {
   //Connection creation
