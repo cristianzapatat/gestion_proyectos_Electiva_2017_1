@@ -20,8 +20,11 @@
           </a>
           <ul class="dropdown-menu">
             <li class="user-header flex-centered" style="flex-direction:column">
-              <!--<img style="border-radius: 50%;" src="/img/Director.png" class="user-image" alt="User Image">-->
-              <img style="border-radius: 50%;" src="/img/Integrante.png" class="user-image" alt="User Image">
+              {{#if user.state}}
+                <img style="border-radius: 50%;" src="/img/Director.png" class="user-image" alt="User Image">
+              {{else}}
+                <img style="border-radius: 50%;" src="/img/Integrante.png" class="user-image" alt="User Image">
+              {{/if}}
               <p>
                 {{user.name}}
                 <small>{{user.rol}}</small>

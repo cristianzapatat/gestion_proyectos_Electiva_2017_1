@@ -9,14 +9,18 @@
 </section>
 <hr>
 <section class="content">
-  <form class="row flex-centered" action="/member/search" method="post">
+  <form class="row" action="/member/search" method="post">
     {{#if visible}}
       <div class="col-md-8 row">
         <label style="color:#af0909; font-size:1.8em;">No existen proyectos para asignar Integrantes</label>
       </div>
     {{else}}
-      <div class="col-md-8 row">
-        <div class="col-md-6 form-group">
+      <div class="col-md-8 row flex-vertical-end">
+        <div class="col-md-5 form-group item-form-horizontal">
+          <label for="name">Ingrese la cédula</label>
+          <input type="search" class="form-control" name="document" required placeholder="cédula integrante">
+        </div>
+        <div class="col-md-5 form-group item-form-horizontal">
           <label for="project">Proyecto</label>
           <select class="form-control" name="project" required>
           {{#each projects}}
@@ -24,52 +28,54 @@
           {{/each}}
         </select>
         </div>
-        <div class="col-md-6 form-group">
-          <label for="name">Ingrese la cédula</label>
-          <input type="search" class="form-control" name="document" required placeholder="cédula integrante">
-        </div>
-        <div class="col-md-4">
-          <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color}}" value="Buscar">
+        <div class="col-md-2">
+          <input type="submit" name="submit" class="btn btn-flat btn-block btn-primary" value="Buscar">
         </div>
       </div>
     {{/if}}
   </form>
+  <hr>
+  <br>
+  <br>
   <br>
   {{#if state}}
     <form class="row flex-centered" action="/member/{{url}}" method="post">
       {{#if err}}
-        <div class="col-md-8 row">
+        <div class="col-md-12 row">
           <label style="color:#af0909; font-size:1.8em;">No existen encontro Usuario alguno.</label>
         </div>
       {{else}}
         <input type="hidden" name="id" value="{{member.id}}">
         <input type="hidden" name="user" value="{{member.id_user}}">
         <input type="hidden" name="project" value="{{member.project}}">
-        <div class="col-md-5 row">
-          <div class="col-md-12 form-group">
-            <label>Nombre integrante</label><br>
-            <label>{{member.name}}</label>
+        <div class="col-md-8">
+          <div class="col-md-6">
+            <label for="name_member">Nombre integrante</label>
+            <input type="text" class="form-control" disabled name="name_member" value="{{member.name}}">
           </div>
-          <div class="col-md-12 form-group">
-            <label>Apellido integrante</label><br>
-            <label>{{member.last_name}}</label>
+          <div class="col-md-6 form-group">
+            <label for="last_name">Apellido integrante</label>
+            <input type="text" class="form-control" disabled name="last_name" value="{{member.last_name}}">
           </div>
-          <div class="col-md-12 form-group">
-            <label>Correo integrante</label><br>
-            <label>{{member.mail}}</label>
+          <div class="col-md-6 form-group">
+            <label for="mail">Correo integrante</label>
+            <input type="text" class="form-control" disabled name="mail" value="{{member.mail}}">
           </div>
-          <div class="col-md-12 form-group">
-            <label>Proyecto</label><br>
-            <label>{{member.project_name}}</label>
+          <div class="col-md-6 form-group">
+            <label for="project">Proyecto</label>
+            <input type="text" class="form-control" disabled name="project" value="{{member.project_name}}">
           </div>
           <div class="col-md-6">
+
+          </div>
+          <div class="col-md-3">
             <a href="/member/create" type="buttom" class="btn btn-flat btn-block btn-info">Cancelar</a>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-3">
             <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color_action}}" value="{{action}}">
           </div>
+        </div>
       {{/if}}
     </form>
   {{/if}}
-
 </section>
