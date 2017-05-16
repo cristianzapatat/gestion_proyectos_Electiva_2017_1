@@ -65,11 +65,11 @@ exports.editPosition = "update position set name = ?, project = ?, schedule = ?,
 //-------------------------------------Members----------------------------------
 
 //query para listar todos los integrantes de los proyectos
-exports.listAllMembers = "select m.id as id, p.name as project, CONCAT(u.name, ' ', u.last_name) as user, u.document " +
+exports.listAllMembers = "select m.id as id, p.id as id_project, p.name as project, CONCAT(u.name, ' ', u.last_name) as user, u.document " +
   "from member m join project p on m.project = p.id join user u on m.user = u.id where p.user = ? order by p.name ASC, u.last_name ASC";
 
 //query para listar los miembros de un proyecto
-exports.listMemberByProject = "select m.id as id, p.name as project, CONCAT(u.name, ' ', u.last_name) as user, u.document " +
+exports.listMemberByProject = "select m.id as id, p.id as id_project, p.name as project, CONCAT(u.name, ' ', u.last_name) as user, u.document " +
   "from member m join project p on m.project = p.id join user u on m.user = u.id where p.user =  ? and p.id = ? order by u.last_name ASC";
 
 //query para seleccionar un integrante

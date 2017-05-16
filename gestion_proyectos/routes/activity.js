@@ -114,6 +114,7 @@ router.get('/create', (req, res) => {
                     visible: false,
                     projects: data,
                     members: member,
+                    json: JSON.stringify(member),
                     color: 'success',
                     action: 'Crear',
                     url: 'create',

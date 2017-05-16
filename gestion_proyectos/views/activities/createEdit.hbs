@@ -1,16 +1,3 @@
-<script type="text/javascript">
-  console.log({{members}});
-  $(function() {
-    // bind change event to select
-    $('#select_project').on('change', function() {
-      var url = '/activity/list/' + $('.float-select').val(); // get selected value
-      if (url) { // require a URL
-        window.location = url; // redirect
-      }
-      return false;
-    });
-  });
-</script>
 <section class="content-header">
   <h1>
         <b>{{action}} Actividades</b>
@@ -39,8 +26,9 @@
         </select>
         </div>
         <div class="col-md-6 form-group">
+          <input type="hidden" name="json" id="json" value="{{json}}">
           <label for="member">Integrante</label>
-          <select class="form-control" name="member" required>
+          <select class="form-control" name="member" id="select_member" required>
           {{#each members}}
           <option value="{{id}}" {{#if select}}selected{{/if}}>{{user}}</option>
           {{/each}}
@@ -75,3 +63,21 @@
     {{/if}}
   </form>
 </section>
+<script type="text/javascript">
+  var json = JSON.parse($('#json').val());
+  console.log(json);
+  $(function() {
+    // bind change event to select
+    $('#select_project').on('change', function() {
+      $('#select_member').empty();
+      var value = parseInt($('#select_project').val());
+      console.log(value);
+      for (var i = 0; i < json.length; i++) {
+        console.log(json[i].id_project);
+        if (value === json[i].id_project) {
+          console.log('al');
+        }
+      }
+    });
+  });
+</script>
