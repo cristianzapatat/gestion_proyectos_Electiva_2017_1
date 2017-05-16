@@ -1,5 +1,5 @@
 /*
-SQLyog Community Edition- MySQL GUI v8.05 
+SQLyog Community Edition- MySQL GUI v8.05
 MySQL - 5.7.18-log : Database - gestion_proyectos
 *********************************************************************
 */
@@ -96,6 +96,17 @@ CREATE TABLE `project` (
 /*Data for the table `project` */
 
 insert  into `project`(`id`,`user`,`name`,`start`,`end`,`stage`) values (300,5,'Test oioui','2017-05-03','2017-06-15','50% - 75%'),(301,7,'Concep','2017-02-02','2017-06-09','25% - 50%'),(303,5,'1234','2017-05-03','2017-05-05','0% – 25%'),(304,43,'Proyecto web','2017-05-04','2017-05-30','0% – 25%'),(306,43,'Proyecto movil','2017-05-01','2017-05-26','0% – 25%'),(307,8,'un proyecto','2017-05-13','2017-05-26','0% – 25%'),(308,8,'otro project','2017-05-12','2017-05-20','25% - 50%');
+
+DROP TABLE IF EXISTS `resources`;
+
+CREATE TABLE `resources` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(100) NOT NULL,
+    `quantity` int(10) NOT NULL,
+    `ubication` varchar(100) NOT NULL,
+    `description` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`),
+) ENGINE=InnoDB AUTO_INCREMENT=400 CHARSET=utf8;
 
 /*Table structure for table `type_document` */
 
