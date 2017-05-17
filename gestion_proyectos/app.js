@@ -9,12 +9,12 @@ var session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var project = require('./routes/project');
-var position = require('./routes/position');
-var member = require('./routes/member');
-var activity = require('./routes/activity');
-var meeting = require('./routes/meeting');
-var resources= require('./routes/resources');
+var project = require('./routes/manager/project');
+var position = require('./routes/manager/position');
+var member = require('./routes/manager/member');
+var activity = require('./routes/manager/activity');
+var meeting = require('./routes/manager/meeting');
+var resources= require('./routes/manager/resources');
 
 var db = require('./dao/db');
 

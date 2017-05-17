@@ -1,9 +1,9 @@
 "use strict";
 
 var express = require('express');
-var util = require('../util/util');
-var queries = require('../util/queries');
-var db = require('../dao/db');
+var util = require('../../util/util');
+var queries = require('../../util/queries');
+var db = require('../../dao/db');
 var router = express.Router();
 
 router.get('/', (req, res) => {
@@ -26,7 +26,7 @@ router.get('/list', (req, res) => {
             if (fail) {
               res.redirect('/');
             } else {
-              res.render('charges/list', {
+              res.render('manager/charges/list', {
                 projects: result,
                 charges: data,
                 user: req.session.user[0]
@@ -71,7 +71,7 @@ router.get('/list/:id', (req, res) => {
                           break;
                         }
                       }
-                      res.render('charges/list', {
+                      res.render('manager/charges/list', {
                         projects: result,
                         charges: data,
                         user: req.session.user[0]
@@ -105,7 +105,7 @@ router.get('/create', (req, res) => {
           res.redirect('/');
         } else {
           if (data.length > 0) {
-            res.render('charges/createEdit', {
+            res.render('manager/charges/createEdit', {
               visible: false,
               projects: data,
               color: 'success',
@@ -114,7 +114,7 @@ router.get('/create', (req, res) => {
               user: req.session.user[0]
             });
           } else {
-            res.render('charges/createEdit', {
+            res.render('manager/charges/createEdit', {
               visible: true,
               action: 'Crear',
               user: req.session.user[0]
@@ -151,7 +151,7 @@ router.post('/create', (req, res) => {
           }
         });
       } else {
-        res.render('charges/createEdit', {
+        res.render('manager/charges/createEdit', {
           error: 'Complete el formulario',
           action: 'Crear',
           color: 'success',
@@ -196,7 +196,7 @@ router.get('/edit/:id', (req, res) => {
                     }
                     data[0][data[0].schedule] = true;
                     if (data[0].user == req.session.user[0].id) {
-                      res.render('charges/createEdit', {
+                      res.render('manager/charges/createEdit', {
                         action: 'Editar',
                         color: 'warning',
                         url: 'edit',

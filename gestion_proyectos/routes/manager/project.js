@@ -1,9 +1,9 @@
 "use strict";
 
 var express = require('express');
-var util = require('../util/util');
-var queries = require('../util/queries');
-var db = require('../dao/db');
+var util = require('../../util/util');
+var queries = require('../../util/queries');
+var db = require('../../dao/db');
 var router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -20,12 +20,12 @@ router.get('/list', (req, res, next) => {
       let array = [req.session.user[0].id];
       db.execute(queries.listProjectByUser, array, (error, data) => {
         if (error) {
-          res.render('project/list', {
+          res.render('manager/project/list', {
             error: 'No se logro cargar los proyectos',
             user: req.session.user[0]
           });
         } else {
-          res.render('project/list', {
+          res.render('manager/project/list', {
             projects: data,
             user: req.session.user[0]
           });
@@ -42,7 +42,7 @@ router.get('/create', (req, res) => {
     if (!req.session.user[0].state) {
       res.redirect('/');
     } else {
-      res.render('project/createEdit', {
+      res.render('manager/project/createEdit', {
         url: 'create',
         action: 'Crear',
         color: 'success',
@@ -77,7 +77,7 @@ router.post('/create', (req, res) => {
           }
         });
       } else {
-        res.render('project/createEdit', {
+        res.render('manager/project/createEdit', {
           error: 'Complete el formulario',
           action: 'Crear',
           color: 'success',
@@ -121,7 +121,7 @@ router.get('/edit/:id', (req, res) => {
                 if (data[0].stage == '75% - 100%') {
                   data[0]['tres'] = true;
                 }
-                res.render('project/createEdit', {
+                res.render('manager/project/createEdit', {
                   url: 'edit',
                   action: 'Editar',
                   color: 'warning',

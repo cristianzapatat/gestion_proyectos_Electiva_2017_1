@@ -1,9 +1,9 @@
 "use strict";
 
 var express = require('express');
-var util = require('../util/util');
-var queries = require('../util/queries');
-var db = require('../dao/db');
+var util = require('../../util/util');
+var queries = require('../../util/queries');
+var db = require('../../dao/db');
 var router = express.Router();
 
 router.get('/', (req, res) => {
@@ -26,7 +26,7 @@ router.get('/list', (req, res) => {
             if (fail) {
               res.redirect('/');
             } else {
-              res.render('members/list', {
+              res.render('manager/members/list', {
                 projects: data,
                 members: result,
                 user: req.session.user[0]
@@ -71,7 +71,7 @@ router.get('/list/:id', (req, res) => {
                           break;
                         }
                       }
-                      res.render('members/list', {
+                      res.render('manager/members/list', {
                         projects: result,
                         members: data,
                         user: req.session.user[0]
@@ -186,7 +186,7 @@ router.get('/create', (req, res) => {
         if (error) {
           res.redirect('/');
         } else {
-          res.render('members/create', {
+          res.render('manager/members/create', {
             user: req.session.user[0],
             projects: data,
             visible: !(data.length > 0),
@@ -260,7 +260,7 @@ router.post('/search', (req, res) => {
                     project: __data[0].project,
                     project_name: __data[0].project_name
                   }
-                  res.render('members/create', {
+                  res.render('manager/members/create', {
                     user: req.session.user[0],
                     projects: data,
                     visible: !(data.length > 0),
@@ -294,7 +294,7 @@ router.post('/search', (req, res) => {
                           mail: result[0].mail,
                           project_name: project_name
                         }
-                        res.render('members/create', {
+                        res.render('manager/members/create', {
                           user: req.session.user[0],
                           projects: data,
                           state: true,
@@ -313,7 +313,7 @@ router.post('/search', (req, res) => {
                             break;
                           }
                         }
-                        res.render('members/create', {
+                        res.render('manager/members/create', {
                           user: req.session.user[0],
                           projects: data,
                           state: true,

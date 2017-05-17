@@ -1,9 +1,9 @@
 "use strict";
 
 var express= require('express');
-var util = require('../util/util');
-var queries = require('../util/queries');
-var db = require('../dao/db');
+var util = require('../../util/util');
+var queries = require('../../util/queries');
+var db = require('../../dao/db');
 var router = express.Router();
 
 router.get('/', (req, res) => {
@@ -26,7 +26,7 @@ router.get('/list',(req, res)=>{
             if (err) {
               res.redirect('/');
             } else {
-              res.render('resources/list', {
+              res.render('manager/resources/list', {
                 projects: result,
                 resources: data,
                 user: req.session.user[0]

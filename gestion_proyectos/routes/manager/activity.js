@@ -1,9 +1,9 @@
 "use strict";
 
 var express = require('express');
-var util = require('../util/util');
-var queries = require('../util/queries');
-var db = require('../dao/db');
+var util = require('../../util/util');
+var queries = require('../../util/queries');
+var db = require('../../dao/db');
 var router = express.Router();
 
 router.get('/', (req, res) => {
@@ -26,7 +26,7 @@ router.get('/list', (req, res) => {
             if (fail) {
               res.redirect('/');
             } else {
-              res.render('activities/list', {
+              res.render('manager/activities/list', {
                 projects: result,
                 activities: data,
                 user: req.session.user[0]
@@ -71,7 +71,7 @@ router.get('/list/:id', (req, res) => {
                           break;
                         }
                       }
-                      res.render('activities/list', {
+                      res.render('manager/activities/list', {
                         projects: result,
                         activities: data,
                         user: req.session.user[0]
@@ -110,7 +110,7 @@ router.get('/create', (req, res) => {
                 res.redirect('/');
               } else {
                 if (member.length > 0) {
-                  res.render('activities/createEdit', {
+                  res.render('manager/activities/createEdit', {
                     visible: false,
                     projects: data,
                     members: member,
@@ -121,7 +121,7 @@ router.get('/create', (req, res) => {
                     user: req.session.user[0]
                   });
                 } else {
-                  res.render('activities/createEdit', {
+                  res.render('manager/activities/createEdit', {
                     visible: true,
                     action: 'Crear',
                     user: req.session.user[0]
@@ -130,7 +130,7 @@ router.get('/create', (req, res) => {
               }
             });
           } else {
-            res.render('activities/createEdit', {
+            res.render('manager/activities/createEdit', {
               visible: true,
               action: 'Crear',
               user: req.session.user[0]
@@ -259,7 +259,7 @@ router.get('/edit/:id', (req, res) => {
                           break;
                         }
                       }
-                      res.render('activities/createEdit', {
+                      res.render('manager/activities/createEdit', {
                         visible: false,
                         projects: data,
                         members: member,
@@ -273,7 +273,7 @@ router.get('/edit/:id', (req, res) => {
                     }
                   });
                 } else {
-                  res.render('activities/createEdit', {
+                  res.render('manager/activities/createEdit', {
                     visible: true,
                     action: 'Crear',
                     user: req.session.user[0]
@@ -282,7 +282,7 @@ router.get('/edit/:id', (req, res) => {
               }
             });
           } else {
-            res.render('activities/createEdit', {
+            res.render('manager/activities/createEdit', {
               visible: true,
               action: 'Crear',
               user: req.session.user[0]
