@@ -108,3 +108,13 @@ exports.deleteActivity = "delete from activity where id = ?";
 
 //editar una actividad
 exports.editActivity = "update activity set project = ?, member = ?, name = ?, start = ?, end = ?, description = ? where id = ?";
+
+//---------------------------------------Reuniones-----------------------------
+
+//listar todas las reuniones según el usuario logeado
+exports.listAllMeeting = "select m.id, m.thematic, m.ubication, DATE_FORMAT(m.start,'%Y-%m-%d') AS start, p.id as id_project, p.name as project_name " +
+  "from meeting m join project p on m.project = p.id where p.user = ?";
+
+//listar reuniones por proyecto
+exports.listMeetingByProject = "select m.id, m.thematic, m.ubication, DATE_FORMAT(m.start,'%Y-%m-%d') AS start, p.id as id_project, p.name as project_name " +
+  "from meeting m join project p on m.project = p.id where p.user = ? and p.id = ?";

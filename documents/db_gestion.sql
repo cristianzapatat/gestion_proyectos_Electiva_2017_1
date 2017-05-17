@@ -32,11 +32,30 @@ CREATE TABLE `activity` (
   KEY `FK_activity_member` (`member`),
   CONSTRAINT `FK_activity_member` FOREIGN KEY (`member`) REFERENCES `member` (`id`),
   CONSTRAINT `FK_activity_project` FOREIGN KEY (`project`) REFERENCES `project` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `activity` */
 
-insert  into `activity`(`id`,`name`,`description`,`start`,`end`,`project`,`member`) values (1,'test','test','2017-03-10','2017-04-01',307,1);
+insert  into `activity`(`id`,`name`,`description`,`start`,`end`,`project`,`member`) values (1,'test111111','test111111111111','2017-05-17','2017-04-20',307,2),(3,'1212121','12121212','2017-05-06','2017-05-19',307,2),(4,'121212','121212','2017-05-17','2017-05-25',308,3),(6,'12121212','12121212','2017-05-04','2017-05-24',308,4);
+
+/*Table structure for table `meeting` */
+
+DROP TABLE IF EXISTS `meeting`;
+
+CREATE TABLE `meeting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ubication` varchar(255) NOT NULL,
+  `thematic` varchar(200) NOT NULL,
+  `start` date NOT NULL,
+  `project` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_meeting` (`project`),
+  CONSTRAINT `FK_meeting` FOREIGN KEY (`project`) REFERENCES `project` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+/*Data for the table `meeting` */
+
+insert  into `meeting`(`id`,`ubication`,`thematic`,`start`,`project`) values (1,'Auditorio','Lider pubico','2017-05-22',307);
 
 /*Table structure for table `member` */
 
@@ -51,11 +70,11 @@ CREATE TABLE `member` (
   KEY `FK_member_user` (`user`),
   CONSTRAINT `FK_member_project` FOREIGN KEY (`project`) REFERENCES `project` (`id`),
   CONSTRAINT `FK_member_user` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `member` */
 
-insert  into `member`(`id`,`project`,`user`) values (1,307,5),(2,307,44);
+insert  into `member`(`id`,`project`,`user`) values (1,307,5),(2,307,44),(3,308,5),(4,308,44);
 
 /*Table structure for table `position` */
 

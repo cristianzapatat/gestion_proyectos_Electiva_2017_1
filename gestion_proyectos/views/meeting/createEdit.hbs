@@ -1,0 +1,47 @@
+<section class="content-header">
+    <h1>
+        <b>{{action}} proyectos</b>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-university"></i>Proyectos</a></li>
+        <li class="active">{{action}}</li>
+    </ol>
+</section>
+<hr>
+<section class="content">
+  <form class="row flex-centered" action="/project/{{url}}" method="post">
+    <input type="hidden" name="id" value="{{project.id}}">
+    <div class="col-md-5 row">
+      <div class="col-md-12 form-group">
+        <label for="name">Nombre del proyecto</label>
+        <input type="text" class="form-control" name="name" value="{{project.name}}" placeholder="Nombre del proyecto" required>
+      </div>
+      <div class="col-md-12 form-group">
+        <label for="start">Fecha de inicio</label>
+        <input type="date" class="form-control" name="start" value="{{project.start}}" required>
+      </div>
+      <div class="col-md-12 form-group">
+        <label for="end">Fecha de fin</label><br>
+        <input type="date" class="form-control" name="end" value="{{project.end}}" required><br>
+      </div>
+      <div class="col-md-12 form-group">
+        <label for="stage">Etapa del proyecto</label><br>
+        <select class="form-control" name="stage" required>
+          <option value="0% – 25%" {{#if project.cero}}selected{{/if}}>0% – 25%</option>
+          <option value="25% - 50%" {{#if project.uno}}selected{{/if}}>25% - 50%</option>
+          <option value="50% - 75%" {{#if project.dos}}selected{{/if}}>50% - 75%</option>
+          <option value="75% - 100%" {{#if project.tres}}selected{{/if}}>75% - 100%</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <a href="/project/list" type="buttom"class="btn btn-flat btn-block btn-info">Cancelar</a>
+      </div>
+      <div class="col-md-6">
+        <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color}}"value="{{action}}">
+      </div>
+      <div class="col-md-12">
+        <label>{{error}}</label>
+      </div>
+    </div>
+  </form>
+</section>

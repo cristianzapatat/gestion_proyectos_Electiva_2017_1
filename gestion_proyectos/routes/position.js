@@ -30,7 +30,7 @@ router.get('/list', (req, res) => {
                 projects: result,
                 charges: data,
                 user: req.session.user[0]
-              })
+              });
             }
           });
         }
