@@ -118,3 +118,15 @@ exports.listAllMeeting = "select m.id, m.thematic, m.ubication, DATE_FORMAT(m.st
 //listar reuniones por proyecto
 exports.listMeetingByProject = "select m.id, m.thematic, m.ubication, DATE_FORMAT(m.start,'%Y-%m-%d') AS start, p.id as id_project, p.name as project_name " +
   "from meeting m join project p on m.project = p.id where p.user = ? and p.id = ?";
+
+//crear una reunión
+exports.addMeeting = "insert into meeting set ?";
+
+//obtener una reunión
+exports.selectMeeting = "select m.id, m.thematic, m.ubication, DATE_FORMAT(m.start,'%Y-%m-%d') AS start, m.project, p.user as user from meeting m join project p on m.project = p.id where m.id = ?";
+
+//editar una reunión
+exports.editMeeting = "update meeting set project = ?, thematic = ?, ubication = ?, start = ? where id = ?";
+
+//eliminar una reunión
+exports.deleteMeeting = "delete from meeting where id = ?";

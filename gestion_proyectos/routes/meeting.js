@@ -92,4 +92,203 @@ router.get('/list/:id', (req, res) => {
   }
 });
 
+router.get('/create', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let user = [req.session.user[0].id];
+      db.execute(queries.listProjectByUser, user, (error, data) => {
+        if (error) {
+          res.redirect('/');
+        } else {
+          if (data.length > 0) {
+            res.render('meeting/createEdit', {
+              visible: false,
+              projects: data,
+              color: 'success',
+              action: 'Crear',
+              url: 'create',
+              user: req.session.user[0]
+            });
+          } else {
+            res.render('meeting/createEdit', {
+              visible: true,
+              action: 'Crear',
+              user: req.session.user[0]
+            });
+          }
+        }
+      });
+    }
+  }
+});
+
+router.post('/create', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let meeting = {
+        project: req.body.project,
+        thematic: req.body.thematic,
+        ubication: req.body.ubication,
+        start: req.body.start
+      };
+      let validate = util.isNotEmptyNotNull(meeting.project, meeting.thematic, meeting.ubication,
+        meeting.start);
+      if (validate) {
+        db.execute(queries.addMeeting, meeting, (error, data) => {
+          if (error) {
+            res.redirect('/');
+          } else {
+            res.redirect('/meeting/list');
+          }
+        });
+      } else {
+        res.render('meeting/createEdit', {
+          error: 'Complete el formulario',
+          action: 'Crear',
+          color: 'success',
+          url: 'create',
+          user: req.session.user[0]
+        });
+      }
+    }
+  }
+});
+
+router.get('/edit', (req, res) => {
+  res.redirect('/');
+})
+
+router.get('/edit/:id', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let array = [req.session.user[0].id, req.params.id];
+      let validate = util.isNotEmptyNotNull(array[0], array[1]);
+      if (validate) {
+        let ids = [array[0]];
+        db.execute(queries.listProjectByUser, ids, (error, result) => {
+          if (error) {
+            res.redirect('/');
+          } else {
+            if (result.length > 0) {
+              let idsM = [array[1]];
+              db.execute(queries.selectMeeting, idsM, (err, data) => {
+                if (err) {
+                  res.redirect('/');
+                } else {
+                  if (data.length > 0) {
+                    for (let i = 0; i < result.length; i++) {
+                      if (result[i].id == data[0].project) {
+                        result[i]['select'] = true;
+                        break;
+                      }
+                    }
+                    if (data[0].user == req.session.user[0].id) {
+                      res.render('meeting/createEdit', {
+                        action: 'Editar',
+                        color: 'warning',
+                        url: 'edit',
+                        meeting: data[0],
+                        projects: result,
+                        user: req.session.user[0]
+                      });
+                    } else {
+                      res.redirect('/');
+                    }
+                  } else {
+                    res.redirect('/');
+                  }
+                }
+              });
+            } else {
+              res.redirect('/');
+            }
+          }
+        });
+      } else {
+        res.redirect('/');
+      }
+    }
+  }
+});
+
+router.post('/edit', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let array = [req.body.project, req.body.thematic, req.body.ubication, req.body.start,
+        req.body.id
+      ];
+      let validate = util.isNotEmptyNotNull(array[0], array[1], array[2], array[3], array[4]);
+      if (validate) {
+        db.execute(queries.editMeeting, array, (error, data) => {
+          if (error) {
+            res.redirect('/');
+          } else {
+            res.redirect('/meeting/list');
+          }
+        });
+      } else {
+        res.redirect('/meeting/list');
+      }
+    }
+  }
+});
+
+router.get('/delete', (req, res) => {
+  res.redirect('/');
+});
+
+router.get('/delete/:id', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let array = [req.params.id];
+      let validate = util.isNotEmptyNotNull(array[0]);
+      if (validate) {
+        db.execute(queries.selectMeeting, array, (error, data) => {
+          if (error) {
+            res.redirect('/');
+          } else {
+            if (data.length > 0) {
+              if (data[0].user == req.session.user[0].id) {
+                db.execute(queries.deleteMeeting, array, (err, result) => {
+                  if (err) {
+                    res.redirect('/');
+                  } else {
+                    res.redirect('/meeting/list');
+                  }
+                });
+              } else {
+                res.redirect('/');
+              }
+            } else {
+              res.redirect('/');
+            }
+          }
+        });
+      } else {
+        res.redirect('/');
+      }
+    }
+  }
+});
+
 module.exports = router;
