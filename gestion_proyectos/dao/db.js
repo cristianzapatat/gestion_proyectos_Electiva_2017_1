@@ -6,7 +6,7 @@ var connection;
 
 var host = "localhost";
 var user = "root";
-var password = "";
+var password = "root";
 var db = "gestion_proyectos";
 /**
 var host = "sql10.freemysqlhosting.net";

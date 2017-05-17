@@ -109,10 +109,23 @@ exports.deleteActivity = "delete from activity where id = ?";
 //editar una actividad
 exports.editActivity = "update activity set project = ?, member = ?, name = ?, start = ?, end = ?, description = ? where id = ?";
 
-//---------------------------------------Reuniones-----------------------------
+//---------------------------------------Recursos-----------------------------
 
 //listar todos los recursos de un director
-exports.listAllResources="SELECT r.id, r.name, r.quantity, r.ubication, r.description FROM resources AS r WHERE user=?";
+exports.listAllResources = "SELECT r.id, r.name, r.quantity, r.ubication, r.description FROM resources AS r WHERE user=?";
+
+//crear un recursos
+exports.addResource = "insert into resources set ?";
+
+//seleccionar un recurso
+exports.selectResource = "select id, name, quantity, ubication, description, user from resources where id = ? and user = ?";
+
+//eliminar un recurso
+exports.deleteResource = "delete from resources where id = ? and user = ?";
+
+//editar un recurso
+exports.editResource = "update resources set name = ?, quantity = ?, ubication = ?, description = ? where id = ? and user = ?";
+
 //---------------------------------------Reuniones-----------------------------
 
 //listar todas las reuniones según el usuario logeado

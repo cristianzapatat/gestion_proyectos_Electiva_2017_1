@@ -1,43 +1,38 @@
 <section class="content-header">
-    <h1>
+  <h1>
         <b>{{action}} Recursos</b>
     </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-tachometer"></i>Recursos</a></li>
-        <li class="active">{{action}}</li>
-    </ol>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-tachometer"></i>Recursos</a></li>
+    <li class="active">{{action}}</li>
+  </ol>
 </section>
 <hr>
 <section class="content">
-  <form class="row flex-centered" action="/project/{{url}}" method="post">
-    <input type="hidden" name="id" value="{{project.id}}">
+  <form class="row flex-centered" action="/resource/{{url}}" method="post">
+    <input type="hidden" name="id" value="{{resource.id}}">
     <div class="col-md-5 row">
       <div class="col-md-12 form-group">
-        <label for="name">Nombre del proyecto</label>
-        <input type="text" class="form-control" name="name" value="{{project.name}}" placeholder="Nombre del proyecto" required>
+        <label for="name">Nombre del recurso</label>
+        <input maxlength="100" type="text" class="form-control" name="name" value="{{resource.name}}" placeholder="Nombre del recurso" required>
       </div>
       <div class="col-md-12 form-group">
-        <label for="start">Fecha de inicio</label>
-        <input type="date" class="form-control" name="start" value="{{project.start}}" required>
+        <label for="quantity">Cantidad del recurso</label>
+        <input maxlength="10" type="number" class="form-control" name="quantity" value="{{resource.quantity}}" placeholder="Cantidad del recurso" required>
       </div>
       <div class="col-md-12 form-group">
-        <label for="end">Fecha de fin</label><br>
-        <input type="date" class="form-control" name="end" value="{{project.end}}" required>
+        <label for="ubication">Ubicación del recurso</label>
+        <input maxlength="100" type="text" class="form-control" name="ubication" value="{{resource.ubication}}" placeholder="Nombre del proyecto" required>
       </div>
       <div class="col-md-12 form-group">
-        <label for="stage">Etapa del proyecto</label><br>
-        <select class="form-control" name="stage" required>
-          <option value="0% – 25%" {{#if project.cero}}selected{{/if}}>0% – 25%</option>
-          <option value="25% - 50%" {{#if project.uno}}selected{{/if}}>25% - 50%</option>
-          <option value="50% - 75%" {{#if project.dos}}selected{{/if}}>50% - 75%</option>
-          <option value="75% - 100%" {{#if project.tres}}selected{{/if}}>75% - 100%</option>
-        </select>
+        <label for="description">Descripción del recurso</label>
+        <textarea maxlength="255" name="description" class="form-control text-area" rows="8" placeholder="Descripción del recurso" required>{{resource.description}}</textarea>
       </div>
       <div class="col-md-6">
-        <a href="/project/list" type="buttom"class="btn btn-flat btn-block btn-info">Cancelar</a>
+        <a href="/resource/list" type="buttom" class="btn btn-flat btn-block btn-info">Cancelar</a>
       </div>
       <div class="col-md-6">
-        <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color}}"value="{{action}}">
+        <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color}}" value="{{action}}">
       </div>
       <div class="col-md-12">
         <label>{{error}}</label>
