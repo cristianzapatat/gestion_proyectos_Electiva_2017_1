@@ -111,6 +111,10 @@ exports.editActivity = "update activity set project = ?, member = ?, name = ?, s
 
 //---------------------------------------Reuniones-----------------------------
 
+//listar todos los recursos de un director
+exports.listAllResources="SELECT r.id, r.name, r.quantity, r.ubication, r.description FROM resources AS r WHERE user=?";
+//---------------------------------------Reuniones-----------------------------
+
 //listar todas las reuniones según el usuario logeado
 exports.listAllMeeting = "select m.id, m.thematic, m.ubication, DATE_FORMAT(m.start,'%Y-%m-%d') AS start, p.id as id_project, p.name as project_name " +
   "from meeting m join project p on m.project = p.id where p.user = ?";

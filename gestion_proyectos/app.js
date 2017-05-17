@@ -14,6 +14,7 @@ var position = require('./routes/position');
 var member = require('./routes/member');
 var activity = require('./routes/activity');
 var meeting = require('./routes/meeting');
+var resources= require('./routes/resources');
 
 var db = require('./dao/db');
 
@@ -64,6 +65,7 @@ app.use('/charges', position);
 app.use('/member', member);
 app.use('/activity', activity);
 app.use('/meeting', meeting);
+app.use('/resource', resources);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
