@@ -1,5 +1,5 @@
 /*
-SQLyog Community Edition- MySQL GUI v8.05
+SQLyog Community Edition- MySQL GUI v8.05 
 MySQL - 5.7.18-log : Database - gestion_proyectos
 *********************************************************************
 */
@@ -32,7 +32,7 @@ CREATE TABLE `activity` (
   KEY `FK_activity_member` (`member`),
   CONSTRAINT `FK_activity_member` FOREIGN KEY (`member`) REFERENCES `member` (`id`),
   CONSTRAINT `FK_activity_project` FOREIGN KEY (`project`) REFERENCES `project` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `activity` */
 
@@ -51,11 +51,11 @@ CREATE TABLE `member` (
   KEY `FK_member_user` (`user`),
   CONSTRAINT `FK_member_project` FOREIGN KEY (`project`) REFERENCES `project` (`id`),
   CONSTRAINT `FK_member_user` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `member` */
 
-insert  into `member`(`id`,`project`,`user`) values (1,307,5);
+insert  into `member`(`id`,`project`,`user`) values (1,307,5),(2,307,44);
 
 /*Table structure for table `position` */
 
@@ -97,16 +97,20 @@ CREATE TABLE `project` (
 
 insert  into `project`(`id`,`user`,`name`,`start`,`end`,`stage`) values (300,5,'Test oioui','2017-05-03','2017-06-15','50% - 75%'),(301,7,'Concep','2017-02-02','2017-06-09','25% - 50%'),(303,5,'1234','2017-05-03','2017-05-05','0% – 25%'),(304,43,'Proyecto web','2017-05-04','2017-05-30','0% – 25%'),(306,43,'Proyecto movil','2017-05-01','2017-05-26','0% – 25%'),(307,8,'un proyecto','2017-05-13','2017-05-26','0% – 25%'),(308,8,'otro project','2017-05-12','2017-05-20','25% - 50%');
 
+/*Table structure for table `resources` */
+
 DROP TABLE IF EXISTS `resources`;
 
 CREATE TABLE `resources` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(100) NOT NULL,
-    `quantity` int(10) NOT NULL,
-    `ubication` varchar(100) NOT NULL,
-    `description` varchar(255) NOT NULL,
-    PRIMARY KEY (`id`),
-) ENGINE=InnoDB AUTO_INCREMENT=400 CHARSET=utf8;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `ubication` varchar(100) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `resources` */
 
 /*Table structure for table `type_document` */
 
@@ -161,7 +165,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`document`,`name`,`last_name`,`date`,`password`,`type_user`,`type_document`,`mail`) values (5,'1','admin','admin','2017-05-03','admin',2,2,'admin@admin.com'),(7,'2','12121','12121','2017-05-02','1234',1,1,'121212@wqwq.com'),(8,'3','otro','otro','2017-05-12','otro',1,1,'otro@otro.com'),(9,'4','mas','mas','2017-05-10','mas',1,1,'mas@mas.com'),(11,'5','1212','1212','2017-05-12','1212',1,1,'1212@algo.com'),(43,'12345','Johnny','Salazar','2017-05-09','123',1,1,'alexander9052@gmail.com'),(44,'123456','asSs','sdas','2017-05-03','1234',1,1,'aahahah@djdj.com');
+insert  into `user`(`id`,`document`,`name`,`last_name`,`date`,`password`,`type_user`,`type_document`,`mail`) values (5,'1','admin','admin','2017-05-03','admin',2,2,'admin@admin.com'),(7,'2','12121','12121','2017-05-02','1234',1,1,'121212@wqwq.com'),(8,'3','otro','otro','2017-05-12','otro',1,1,'otro@otro.com'),(9,'4','mas','mas','2017-05-10','mas',1,1,'mas@mas.com'),(11,'5','1212','1212','2017-05-12','1212',1,1,'1212@algo.com'),(43,'12345','Johnny','Salazar','2017-05-09','123',1,1,'alexander9052@gmail.com'),(44,'123456','asSs','sdas','2017-05-03','1234',2,1,'aahahah@djdj.com');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

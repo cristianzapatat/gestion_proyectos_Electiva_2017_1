@@ -27,6 +27,7 @@
         </div>
         <div class="col-md-6 form-group">
           <input type="hidden" name="json" id="json" value="{{json}}">
+          <input type="hidden" name="id_member" id="id_member" value="{{activity.member}}">
           <label for="member">Integrante</label>
           <select class="form-control" name="member" id="member" required>
           {{#each members}}
@@ -69,7 +70,11 @@
   var id = parseInt($('#project').val());
   for (var i = 0; i < json.length; i++) {
     if (id === json[i].id_project) {
-      $("#member").append(new Option(json[i].user, json[i].id));
+      if (json[i].id == parseInt($("#id_member").val())) {
+        $("#member").append(new Option(json[i].user, json[i].id, true, true));
+      } else {
+        $("#member").append(new Option(json[i].user, json[i].id));
+      }
     }
   }
   $(function() {

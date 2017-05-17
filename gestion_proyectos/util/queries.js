@@ -105,3 +105,6 @@ exports.addActivity = "insert into activity set ?";
 
 //eliminar una actividad
 exports.deleteActivity = "delete from activity where id = ?";
+
+//editar una actividad
+exports.editActivity = "update activity set project = ?, member = ?, name = ?, start = ?, end = ?, description = ? where id = ?";

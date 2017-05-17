@@ -253,6 +253,12 @@ router.get('/edit/:id', (req, res) => {
                         project: result[0].project,
                         member: result[0].member
                       };
+                      for (let i = 0; i < data.length; i++) {
+                        if (data[i].id == activity.project) {
+                          data[i]['select'] = true;
+                          break;
+                        }
+                      }
                       res.render('activities/createEdit', {
                         visible: false,
                         projects: data,
@@ -295,12 +301,12 @@ router.post('/edit', (req, res) => {
     if (!req.session.user[0].state) {
       res.redirect('/');
     } else {
-      let array = [req.body.name, req.body.project, req.body.schedule, req.body.salary,
-        req.body.description, req.body.id
+      let array = [req.body.project, req.body.member, req.body.name, req.body.start,
+        req.body.end, req.body.description, req.body.id
       ];
-      let validateCharge = util.isNotEmptyNotNull(array[0], array[1], array[2], array[3], array[4], array[5]);
-      if (validateCharge) {
-        db.execute(queries.editPosition, array, (error, data) => {
+      let validate = util.isNotEmptyNotNull(array[0], array[1], array[2], array[3], array[4], array[5], array[6]);
+      if (validate) {
+        db.execute(queries.editActivity, array, (error, data) => {
           if (error) {
             res.redirect('/');
           } else {
