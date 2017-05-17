@@ -51,11 +51,11 @@ CREATE TABLE `meeting` (
   PRIMARY KEY (`id`),
   KEY `FK_meeting` (`project`),
   CONSTRAINT `FK_meeting` FOREIGN KEY (`project`) REFERENCES `project` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `meeting` */
 
-insert  into `meeting`(`id`,`ubication`,`thematic`,`start`,`project`) values (1,'Auditorio','Lider pubico','2017-05-22',307);
+insert  into `meeting`(`id`,`ubication`,`thematic`,`start`,`project`) values (3,'3333','3333','2017-05-26',308);
 
 /*Table structure for table `member` */
 
@@ -126,7 +126,10 @@ CREATE TABLE `resources` (
   `quantity` int(10) NOT NULL,
   `ubication` varchar(100) NOT NULL,
   `description` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `user` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_resources_user` (`user`),
+  CONSTRAINT `FK_resources_user` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `resources` */
