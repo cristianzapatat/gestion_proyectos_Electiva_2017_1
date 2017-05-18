@@ -130,9 +130,11 @@ CREATE TABLE `resources` (
   PRIMARY KEY (`id`),
   KEY `FK_resources_user` (`user`),
   CONSTRAINT `FK_resources_user` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `resources` */
+
+insert  into `resources`(`id`,`name`,`quantity`,`ubication`,`description`,`user`) values (1,'tv',1,'aqui','un tv ffffff',8);
 
 /*Table structure for table `type_document` */
 

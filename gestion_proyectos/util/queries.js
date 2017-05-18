@@ -147,3 +147,23 @@ exports.editMeeting = "update meeting set project = ?, thematic = ?, ubication =
 
 //eliminar una reunión
 exports.deleteMeeting = "delete from meeting where id = ?";
+
+
+
+
+//-------------------------Reuniones Integrantes-------------------------------
+
+//listar las reuniones a las que pertenece un integrante por proyecto
+exports.listMeetingForMemberAndProject = "SELECT m.id, m.ubication, m.thematic, DATE_FORMAT(m.start,'%Y-%m-%d') AS start, p.id AS id_project, " +
+  "p.name AS name_project FROM meeting m JOIN project p ON m.project = p.id JOIN member i ON p.id = i.project " +
+  "WHERE i.user = ? and p.id = ? order by m.start ASC";
+
+//query para listar los projectos de un usuario.
+exports.listProjectByIntegrant = "SELECT p.id, p.user, p.name, DATE_FORMAT(p.START,'%Y-%m-%d') AS start," +
+  " DATE_FORMAT(p.END,'%Y-%m-%d') AS end, p.stage, CONCAT(u.name, ' ', u.last_name) as name_user FROM project p join member m on p.id = m.project" +
+  " join user u on p.user = u.id where m.user = ?";
+
+//query para seleccionar un proyecto al que pertenece un integrante
+exports.selectProjectByIntegrant = "SELECT p.id, p.user, p.name, DATE_FORMAT(p.START,'%Y-%m-%d') AS start," +
+  " DATE_FORMAT(p.END,'%Y-%m-%d') AS end, p.stage, CONCAT(u.name, ' ', u.last_name) as name_user FROM project p join member m on p.id = m.project" +
+  " join user u on p.user = u.id where m.user = ? and p.id = ?";

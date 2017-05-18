@@ -9,9 +9,20 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.session.user) {
-    res.render('index', {
-      user: req.session.user[0]
-    });
+    if (req.session.user[0].state) {
+      res.render('index', {
+        user: req.session.user[0]
+      });
+    } else {
+      if (req.session.project) {
+        res.render('index', {
+          user: req.session.user[0],
+          project: req.session.project[0].name
+        });
+      } else {
+        res.redirect('/integrant/projects');
+      }
+    }
   } else {
     res.redirect('login')
   }

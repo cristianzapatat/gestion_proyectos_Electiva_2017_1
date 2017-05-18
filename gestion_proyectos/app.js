@@ -8,13 +8,16 @@ var exphbs = require('express-handlebars');
 var session = require('express-session');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+//director
 var project = require('./routes/manager/project');
 var position = require('./routes/manager/position');
 var member = require('./routes/manager/member');
 var activity = require('./routes/manager/activity');
 var meeting = require('./routes/manager/meeting');
-var resources= require('./routes/manager/resources');
+var resources = require('./routes/manager/resources');
+//integrante
+var selectProject = require('./routes/integrant/selectProject');
+var listMeeting = require('./routes/integrant/listMeeting');
 
 var db = require('./dao/db');
 
@@ -59,13 +62,16 @@ app.use(session({
 }));
 
 app.use('/', index);
-app.use('/users', users);
+//director
 app.use('/project', project);
 app.use('/charges', position);
 app.use('/member', member);
 app.use('/activity', activity);
 app.use('/meeting', meeting);
 app.use('/resource', resources);
+//integrant
+app.use('/integrant', selectProject);
+app.use('/listmeeting', listMeeting);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
