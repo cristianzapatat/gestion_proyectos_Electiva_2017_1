@@ -15,8 +15,8 @@
         <label style="color:#af0909; font-size:1.8em;">No existen proyectos o actividades para una Tarea.</label>
       </div>
     {{else}}
-      <input type="hidden" name="resources" id="resources">
-      <input type="hidden" id="id" value="{{task.id}}">
+      <input type="hidden" name="resources" id="resources" value="{{temp}}">
+      <input type="hidden" name="id" id="id" value="{{task.id}}">
       <input type="hidden" id="activities" value="{{activities}}">
       <input type="hidden" name="id_activity" value="{{task.activity}}">
       <div class="col-md-8 row">
@@ -73,16 +73,29 @@
                   <td>{{description}}</td>
                   <td style="width: 120px;">
                     <ul class="list-buttons" style="justify-content: center;">
-                      <li>
-                        <button type="button" class="btn btn-success btn-block" name="button" id="add{{id}}" onclick="addResource({{id}});">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                      </button>
-                      </li>
-                      <li>
-                        <button type="button" class="btn btn-danger btn-block disable-item" name="button" id="drop{{id}}" onclick="dropResource({{id}});">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                      </button>
-                      </li>
+                      {{#if select}}
+                        <li>
+                          <button type="button" class="btn btn-success btn-block disable-item" name="button" id="add{{id}}" onclick="addResource({{id}});">
+                          <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>
+                        </li>
+                        <li>
+                          <button type="button" class="btn btn-danger btn-block" name="button" id="drop{{id}}" onclick="dropResource({{id}});">
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                        </li>
+                      {{else}}
+                        <li>
+                          <button type="button" class="btn btn-success btn-block" name="button" id="add{{id}}" onclick="addResource({{id}});">
+                          <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>
+                        </li>
+                        <li>
+                          <button type="button" class="btn btn-danger btn-block disable-item" name="button" id="drop{{id}}" onclick="dropResource({{id}});">
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                        </li>
+                      {{/if}}
                     </ul>
                   </td>
                 </tr>
@@ -105,6 +118,10 @@
 </section>
 <script type="text/javascript">
   var resources = new Array();
+  var temp = $('#resources').val();
+  if (temp.length > 0) {
+    resources = temp.split(',');
+  }
 
   function addResource(resource) {
     if ($.inArray(resource, resources) < 0) {
