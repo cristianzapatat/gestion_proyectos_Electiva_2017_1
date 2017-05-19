@@ -116,6 +116,23 @@ CREATE TABLE `project` (
 
 insert  into `project`(`id`,`user`,`name`,`start`,`end`,`stage`) values (300,5,'Test oioui','2017-05-03','2017-06-15','50% - 75%'),(301,7,'Concep','2017-02-02','2017-06-09','25% - 50%'),(303,5,'1234','2017-05-03','2017-05-05','0% – 25%'),(304,43,'Proyecto web','2017-05-04','2017-05-30','0% – 25%'),(306,43,'Proyecto movil','2017-05-01','2017-05-26','0% – 25%'),(307,8,'un proyecto','2017-05-13','2017-05-26','0% – 25%'),(308,8,'otro project','2017-05-12','2017-05-20','25% - 50%');
 
+/*Table structure for table `reserve` */
+
+DROP TABLE IF EXISTS `reserve`;
+
+CREATE TABLE `reserve` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `task` int(11) NOT NULL,
+  `resource` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_reserve_resource` (`resource`),
+  KEY `FK_reserve_task` (`task`),
+  CONSTRAINT `FK_reserve_resource` FOREIGN KEY (`resource`) REFERENCES `resources` (`id`),
+  CONSTRAINT `FK_reserve_task` FOREIGN KEY (`task`) REFERENCES `task` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `reserve` */
+
 /*Table structure for table `resources` */
 
 DROP TABLE IF EXISTS `resources`;
@@ -135,6 +152,24 @@ CREATE TABLE `resources` (
 /*Data for the table `resources` */
 
 insert  into `resources`(`id`,`name`,`quantity`,`ubication`,`description`,`user`) values (1,'tv',1,'aqui','un tv ffffff',8);
+
+/*Table structure for table `task` */
+
+DROP TABLE IF EXISTS `task`;
+
+CREATE TABLE `task` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `activity` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `start` date NOT NULL,
+  `end` date NOT NULL,
+  `state` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_task_activity` (`activity`),
+  CONSTRAINT `FK_task_activity` FOREIGN KEY (`activity`) REFERENCES `activity` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `task` */
 
 /*Table structure for table `type_document` */
 
