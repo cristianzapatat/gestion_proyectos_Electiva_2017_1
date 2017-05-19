@@ -134,6 +134,19 @@ exports.addTask = "insert into task set ?";
 //query para insertar un recurso de tarea.
 exports.addReserve = "insert into reserve(task, resource) values ";
 
+//query para seleccionar una tarea
+exports.selectTask = "select t.id, t.name, t.activity, DATE_FORMAT(t.start, '%Y-%m-%d') as start, DATE_FORMAT(t.end, '%Y-%m-%d') as end, t.state, p.id as id_project " +
+  " from task t join activity a on t.activity = a.id join project p on a.project = p.id where t.id = ? and p.user = ?";
+
+//query para listar los recursos de una tarera.
+exports.listReserve = "select id, task, resource from reserve where task = ?";
+
+//query para editar una tarea
+exports.editTask = "update task set activity = ?, name = ?, start = ?, end = ?, state = ? where id = ?";
+
+//eliminar los recursos de una tarea
+exports.deleteResourceByTask = "delete from reserve where task = ?";
+
 //---------------------------------------Reuniones-----------------------------
 
 //listar todas las reuniones según el usuario logeado
