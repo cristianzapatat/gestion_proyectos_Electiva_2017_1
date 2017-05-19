@@ -71,3 +71,6 @@ hr {
 .seleccionable{
   cursor: pointer;
 }
+.disable-item{
+  display: none;
+}

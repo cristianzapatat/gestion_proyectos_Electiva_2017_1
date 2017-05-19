@@ -1,92 +1,121 @@
 <section class="content-header">
   <h1>
-        <b>{{action}} Actividades</b>
+        <b>{{action}} Tareas</b>
     </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-tasks"></i>Actividades</a></li>
+    <li><a href="#"><i class="fa fa-tachometer"></i>Tareas</a></li>
     <li class="active">{{action}}</li>
   </ol>
 </section>
 <hr>
 <section class="content">
-  <form class="row flex-centered" action="/activity/{{url}}" method="post">
-    <input type="hidden" name="id" value="{{activity.id}}">
-    {{#if visible}}
-      <div class="col-md-8 row">
-        <label style="color:#af0909; font-size:1.8em;">No existen proyectos o integrantes para una Actividad.</label>
+  <form class="row flex-centered" action="/tasks/{{action}}" method="post">
+    <input type="hidden" id="resources">
+    <div class="col-md-8 row">
+      <div class="form-group col-md-12">
+        <label for="name">Nombre de la tarea</label>
+        <input type="text" name="name" placeholder="Nombre de la tarea" class="form-control" value="{{task.name}}">
       </div>
-    {{else}}
-      <div class="col-md-8 row">
-        <div class="col-md-6 form-group">
-          <label for="project">Proyecto</label>
-          <select class="form-control" name="project" required id="project">
-          {{#each projects}}
+      <div class="form-group col-md-6">
+        <label for="activity">Actividad</label>
+        <select class="form-control" name="activity" required>
+          {{#each activities}}
           <option value="{{id}}" {{#if select}}selected{{/if}}>{{name}}</option>
           {{/each}}
         </select>
-        </div>
-        <div class="col-md-6 form-group">
-          <input type="hidden" name="json" id="json" value="{{json}}">
-          <input type="hidden" name="id_member" id="id_member" value="{{activity.member}}">
-          <label for="member">Integrante</label>
-          <select class="form-control" name="member" id="member" required>
-          {{#each members}}
-          <option value="{{id}}" {{#if select}}selected{{/if}}>{{user}}</option>
-          {{/each}}
-        </select>
-        </div>
-        <div class="col-md-12 form-group">
-          <label for="name">Nombre de la Actividad</label>
-          <input type="text" class="form-control" name="name" value="{{activity.name}}" required placeholder="Nombre del cargo">
-        </div>
-        <div class="col-md-6 form-group">
-          <label for="start">Inicio</label>
-          <input type="date" name="start" value="{{activity.start}}" class="form-control" required>
-        </div>
-        <div class="col-md-6 form-group">
-          <label for="end">Fin</label>
-          <input type="date" name="end" class="form-control" value="{{activity.end}}" required>
-        </div>
-        <div class="col-md-12 form-group">
-          <label for="description">Descripción de la actividad</label>
-          <textarea name="description" class="form-control text-area" rows="8" placeholder="Descripción de la actividad" required>{{activity.description}}</textarea>
-        </div>
-        <div class="col-md-4">
-          <label>{{error}}</label>
-        </div>
-        <div class="col-md-4">
-          <a href="/activitys/list" type="buttom" class="btn btn-flat btn-block btn-info">Cancelar</a>
-        </div>
-        <div class="col-md-4">
-          <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color}}" value="{{action}}">
-        </div>
       </div>
-    {{/if}}
+      <div class="form-group col-md-6">
+        <label for="state">Estado de la tarea</label>
+        <select class="form-control" name="state" required>
+          <option value="Aprobado" {{#if project.cero}}selected{{/if}}>Aprobado</option>
+          <option value="Iniciado" {{#if project.uno}}selected{{/if}}>Iniciado</option>
+          <option value="En proceso" {{#if project.dos}}selected{{/if}}>En proceso</option>
+          <option value="Finalizado" {{#if project.tres}}selected{{/if}}>Finalizado</option>
+        </select>
+      </div>
+      <div class="col-md-6 form-group">
+        <label for="start">Fecha de inicio</label>
+        <input type="date" name="start" value="{{task.start}}" class="form-control" required>
+      </div>
+      <div class="col-md-6 form-group">
+        <label for="end">Fecha de fin</label>
+        <input type="date" name="end" class="form-control" value="{{task.end}}" required>
+      </div>
+      <hr>
+      <label for="">Listado de recursos</label>
+      <div class="col-md-12">
+        <table class="table table-striped table-condensed table-hover table-bordered">
+          <thead>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Acciones</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TV</td>
+              <td>Un pinche TV</td>
+              <td style="width: 120px;">
+                <ul class="list-buttons" style="justify-content: center;">
+                  <li>
+                    <button type="button" class="btn btn-success btn-block" name="button" id="add2" onclick="addResource(2);">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-danger btn-block disable-item" name="button" id="drop2" onclick="dropResource(2);">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>TV</td>
+              <td>Un pinche TV</td>
+              <td style="width: 120px;">
+                <ul class="list-buttons" style="justify-content: center;">
+                  <li>
+                    <button type="button" class="btn btn-success btn-block" name="button" id="add1" onclick="addResource(1);">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-danger btn-block disable-item" id="drop1" name="button" onclick="dropResource(1);">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+
+      </div>
+      <div class="col-md-3">
+        <a href="/activitys/list" type="buttom" class="btn btn-flat btn-block btn-info">Cancelar</a>
+      </div>
+      <div class="col-md-3">
+        <input type="submit" name="submit" class="btn btn-flat btn-block btn-{{color}}" value="{{action}}">
+      </div>
+    </div>
   </form>
 </section>
 <script type="text/javascript">
-  var json = JSON.parse($('#json').val());
-  $('#member').empty();
-  var id = parseInt($('#project').val());
-  for (var i = 0; i < json.length; i++) {
-    if (id === json[i].id_project) {
-      if (json[i].id == parseInt($("#id_member").val())) {
-        $("#member").append(new Option(json[i].user, json[i].id, true, true));
-      } else {
-        $("#member").append(new Option(json[i].user, json[i].id));
-      }
+  var resources=new Array();
+  function addResource(resource){
+    if ($.inArray(resource, resources)<0) {
+      resources.push(resource);
     }
+    $("#add"+resource).addClass('disable-item');
+    $("#drop"+resource).removeClass('disable-item');
+    $("#resources").val(resources);
   }
-  $(function() {
-    // bind change event to select
-    $('#project').on('change', function() {
-      $('#member').empty();
-      var value = parseInt($('#project').val());
-      for (var i = 0; i < json.length; i++) {
-        if (value === json[i].id_project) {
-          $("#member").append(new Option(json[i].user, json[i].id));
-        }
-      }
-    });
-  });
+  function dropResource(resource){
+    resources.splice($.inArray(resource, resources),1);
+    $("#drop"+resource).addClass('disable-item');
+    $("#add"+resource).removeClass('disable-item');
+    $("#resources").val(resources);
+  }
 </script>
