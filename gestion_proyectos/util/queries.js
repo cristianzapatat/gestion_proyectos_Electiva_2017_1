@@ -167,3 +167,10 @@ exports.listProjectByIntegrant = "SELECT p.id, p.user, p.name, DATE_FORMAT(p.STA
 exports.selectProjectByIntegrant = "SELECT p.id, p.user, p.name, DATE_FORMAT(p.START,'%Y-%m-%d') AS start," +
   " DATE_FORMAT(p.END,'%Y-%m-%d') AS end, p.stage, CONCAT(u.name, ' ', u.last_name) as name_user FROM project p join member m on p.id = m.project" +
   " join user u on p.user = u.id where m.user = ? and p.id = ?";
+
+//query para listar las actiidades de un miembro
+exports.listActivitiesByIntegrant = "select a.id, a.name, a.description, DATE_FORMAT(a.START,'%Y-%m-%d') AS start, DATE_FORMAT(a.end,'%Y-%m-%d') AS end " +
+  "from activity a join member m on a.member = m.id where m.user = ? and a.project = ?";
+
+//query para seleccionar una actividad.
+exports.selectActivityByIntegrant = "select a.id from activity a join member m on a.member = m.id where a.id = ? and m.user = ?";

@@ -18,6 +18,8 @@ var resources = require('./routes/manager/resources');
 //integrante
 var selectProject = require('./routes/integrant/selectProject');
 var listMeeting = require('./routes/integrant/listMeeting');
+var listActivity = require('./routes/integrant/listActivity');
+var listTask = require('./routes/integrant/listTask');
 
 var db = require('./dao/db');
 
@@ -72,12 +74,18 @@ app.use('/resource', resources);
 //integrant
 app.use('/integrant', selectProject);
 app.use('/listmeeting', listMeeting);
+app.use('/listactivity', listActivity);
+app.use('/listtask', listTask);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  }
 });
 
 // error handler
