@@ -12,9 +12,13 @@
   <form class="row flex-centered" action="/tasks/{{action}}" method="post">
     <input type="hidden" id="resources">
     <div class="col-md-8 row">
-      <div class="form-group col-md-12">
-        <label for="name">Nombre de la tarea</label>
-        <input type="text" name="name" placeholder="Nombre de la tarea" class="form-control" value="{{task.name}}">
+      <div class="form-group col-md-6">
+        <label for="project">Proyecto</label>
+        <select class="form-control" name="project" required>
+          {{#each projects}}
+          <option value="{{id}}" {{#if select}}selected{{/if}}>{{name}}</option>
+          {{/each}}
+        </select>
       </div>
       <div class="form-group col-md-6">
         <label for="activity">Actividad</label>
@@ -23,6 +27,10 @@
           <option value="{{id}}" {{#if select}}selected{{/if}}>{{name}}</option>
           {{/each}}
         </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="name">Nombre de la tarea</label>
+        <input type="text" name="name" placeholder="Nombre de la tarea" class="form-control" value="{{task.name}}">
       </div>
       <div class="form-group col-md-6">
         <label for="state">Estado de la tarea</label>
