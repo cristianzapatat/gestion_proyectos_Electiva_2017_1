@@ -10,6 +10,7 @@
 <hr>
 <section class="content">
   <form class="row flex-centered" action="/tasks/{{action}}" method="post">
+    <input type="hidden" id="resources">
     <div class="col-md-8 row">
       <div class="form-group col-md-12">
         <label for="name">Nombre de la tarea</label>
@@ -56,12 +57,12 @@
               <td style="width: 120px;">
                 <ul class="list-buttons" style="justify-content: center;">
                   <li>
-                    <button type="button" class="btn btn-success btn-block disable-item" name="button" onclick="addResource(1);">
+                    <button type="button" class="btn btn-success btn-block" name="button" id="add2" onclick="addResource(2);">
                       <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="btn btn-danger btn-block" name="button">
+                    <button type="button" class="btn btn-danger btn-block disable-item" name="button" id="drop2" onclick="dropResource(2);">
                       <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                   </li>
@@ -74,12 +75,12 @@
               <td style="width: 120px;">
                 <ul class="list-buttons" style="justify-content: center;">
                   <li>
-                    <button type="button" class="btn btn-success btn-block" name="button" onclick="addResource(1);">
+                    <button type="button" class="btn btn-success btn-block" name="button" id="add1" onclick="addResource(1);">
                       <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
                   </li>
                   <li>
-                    <button type="button" class="btn btn-danger btn-block disable-item" name="button">
+                    <button type="button" class="btn btn-danger btn-block disable-item" id="drop1" name="button" onclick="dropResource(1);">
                       <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                   </li>
@@ -102,7 +103,19 @@
   </form>
 </section>
 <script type="text/javascript">
+  var resources=new Array();
   function addResource(resource){
-    alert(resource);
+    if ($.inArray(resource, resources)<0) {
+      resources.push(resource);
+    }
+    $("#add"+resource).addClass('disable-item');
+    $("#drop"+resource).removeClass('disable-item');
+    $("#resources").val(resources);
+  }
+  function dropResource(resource){
+    resources.splice($.inArray(resource, resources),1);
+    $("#drop"+resource).addClass('disable-item');
+    $("#add"+resource).removeClass('disable-item');
+    $("#resources").val(resources);
   }
 </script>
