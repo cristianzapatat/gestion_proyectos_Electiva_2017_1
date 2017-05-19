@@ -15,6 +15,7 @@ var member = require('./routes/manager/member');
 var activity = require('./routes/manager/activity');
 var meeting = require('./routes/manager/meeting');
 var resources = require('./routes/manager/resources');
+var task = require('./routes/manager/task');
 //integrante
 var selectProject = require('./routes/integrant/selectProject');
 var listMeeting = require('./routes/integrant/listMeeting');
@@ -71,6 +72,7 @@ app.use('/member', member);
 app.use('/activity', activity);
 app.use('/meeting', meeting);
 app.use('/resource', resources);
+app.use('/task', task);
 //integrant
 app.use('/integrant', selectProject);
 app.use('/listmeeting', listMeeting);

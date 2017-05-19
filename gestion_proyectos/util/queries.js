@@ -126,6 +126,14 @@ exports.deleteResource = "delete from resources where id = ? and user = ?";
 //editar un recurso
 exports.editResource = "update resources set name = ?, quantity = ?, ubication = ?, description = ? where id = ? and user = ?";
 
+//---------------------------------------Tareas---------------------------------
+
+//query para crear una tarea.
+exports.addTask = "insert into task set ?";
+
+//query para insertar un recurso de tarea.
+exports.addReserve = "insert into reserve(task, resource) values ";
+
 //---------------------------------------Reuniones-----------------------------
 
 //listar todas las reuniones según el usuario logeado
