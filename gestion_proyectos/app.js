@@ -21,6 +21,7 @@ var selectProject = require('./routes/integrant/selectProject');
 var listMeeting = require('./routes/integrant/listMeeting');
 var listActivity = require('./routes/integrant/listActivity');
 var listTask = require('./routes/integrant/listTask');
+var listResource = require('./routes/integrant/listResource');
 
 var db = require('./dao/db');
 
@@ -78,6 +79,7 @@ app.use('/integrant', selectProject);
 app.use('/listmeeting', listMeeting);
 app.use('/listactivity', listActivity);
 app.use('/listtask', listTask);
+app.use('/listresource', listResource);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

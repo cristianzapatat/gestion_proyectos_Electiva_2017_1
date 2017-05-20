@@ -157,6 +157,12 @@ exports.listTaskByActivity = "select t.id, t.name, t.activity, DATE_FORMAT(t.sta
   "t.state, p.name as project_name, p.id as project_id, a.name as activity_name from task t " +
   "join activity a on t.activity = a.id join project p on a.project = p.id where p.user = ? and a.id = ?";
 
+//query para listar los recursos de una tarea.
+exports.listResourcesByTask = "select r.id, r.name, r.quantity, r.description from resources r join reserve k on r.id = k.resource where k.task = ?";
+
+//query para eliminar una tarea
+exports.deleteTask = "delete from task where id = ?";
+
 //---------------------------------------Reuniones-----------------------------
 
 //listar todas las reuniones según el usuario logeado
@@ -205,3 +211,15 @@ exports.listActivitiesByIntegrant = "select a.id, a.name, a.description, DATE_FO
 
 //query para seleccionar una actividad.
 exports.selectActivityByIntegrant = "select a.id from activity a join member m on a.member = m.id where a.id = ? and m.user = ?";
+
+//query para listar las tareas de una actividades
+exports.listTaskForIntegrant = "select t.id, t.name, DATE_FORMAT(t.START,'%Y-%m-%d') AS start, DATE_FORMAT(t.end,'%Y-%m-%d') AS end, t.state from task t where t.activity = ?";
+
+//query para obtener una tarea.
+exports.selectTaskForIntegrant = "select t.id, t.name, DATE_FORMAT(t.START,'%Y-%m-%d') AS start, DATE_FORMAT(t.end,'%Y-%m-%d') AS end, t.state from task t where t.id = ?";
+
+//query para listar los recuros de una tarea de un integrante
+exports.listResourcesForIntegrant = "select r.id, r.name, r.quantity, r.ubication, r.description from resources r join reserve k on r.id = k.resource where k.task = ?";
+
+//query para editar una tarea desde el lado del integrante
+exports.updateTaskIntegrant = "update task set state = ? where id = ?";

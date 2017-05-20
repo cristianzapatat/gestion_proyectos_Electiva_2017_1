@@ -8,6 +8,7 @@ var router = express.Router();
 
 router.get('/', (req, res) => {
   req.session.activity = null;
+  req.session.task = null;
   res.redirect('/listactivity/list');
 });
 
@@ -22,6 +23,7 @@ router.get('/list', (req, res) => {
         res.redirect('/integrant/projects');
       } else {
         req.session.activity = null;
+        req.session.task = null;
         let array = [req.session.user[0].id, req.session.project[0].id];
         db.execute(queries.listActivitiesByIntegrant, array, (error, data) => {
           if (error) {
@@ -61,6 +63,7 @@ router.get('/get/:id', (req, res) => {
               res.redirect('/listactivity/list');
             } else {
               req.session.activity = data[0].id;
+              req.session.task = null;
               res.redirect('/listtask/list');
             }
           });
