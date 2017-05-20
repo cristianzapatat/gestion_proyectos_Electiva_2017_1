@@ -36,7 +36,7 @@ CREATE TABLE `activity` (
 
 /*Data for the table `activity` */
 
-insert  into `activity`(`id`,`name`,`description`,`start`,`end`,`project`,`member`) values (1,'test111111','test111111111111','2017-05-17','2017-04-20',307,2),(3,'1212121','12121212','2017-05-06','2017-05-19',307,2),(4,'121212','121212','2017-05-17','2017-05-25',308,3),(6,'12121212','12121212','2017-05-04','2017-05-24',308,4);
+insert  into `activity`(`id`,`name`,`description`,`start`,`end`,`project`,`member`) values (1,'test111111','test111111111111','2017-05-17','2017-04-20',307,2),(3,'1212121','12121212','2017-05-06','2017-05-19',307,2),(4,'tst','121212','2017-05-17','2017-05-25',308,3),(6,'12121212','12121212','2017-05-04','2017-05-24',308,4);
 
 /*Table structure for table `meeting` */
 
@@ -128,10 +128,12 @@ CREATE TABLE `reserve` (
   KEY `FK_reserve_resource` (`resource`),
   KEY `FK_reserve_task` (`task`),
   CONSTRAINT `FK_reserve_resource` FOREIGN KEY (`resource`) REFERENCES `resources` (`id`),
-  CONSTRAINT `FK_reserve_task` FOREIGN KEY (`task`) REFERENCES `task` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_reserve_task` FOREIGN KEY (`task`) REFERENCES `task` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `reserve` */
+
+insert  into `reserve`(`id`,`task`,`resource`) values (1,5,1),(5,6,3),(6,6,1),(7,4,1);
 
 /*Table structure for table `resources` */
 
@@ -147,11 +149,11 @@ CREATE TABLE `resources` (
   PRIMARY KEY (`id`),
   KEY `FK_resources_user` (`user`),
   CONSTRAINT `FK_resources_user` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `resources` */
 
-insert  into `resources`(`id`,`name`,`quantity`,`ubication`,`description`,`user`) values (1,'tv',1,'aqui','un tv ffffff',8);
+insert  into `resources`(`id`,`name`,`quantity`,`ubication`,`description`,`user`) values (1,'tv',1,'aqui','un tv ffffff',8),(3,'algo',1,'algo','algo',8);
 
 /*Table structure for table `task` */
 
@@ -167,9 +169,11 @@ CREATE TABLE `task` (
   PRIMARY KEY (`id`),
   KEY `FK_task_activity` (`activity`),
   CONSTRAINT `FK_task_activity` FOREIGN KEY (`activity`) REFERENCES `activity` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `task` */
+
+insert  into `task`(`id`,`activity`,`name`,`start`,`end`,`state`) values (1,1,'test 1','2017-05-19','2017-05-20','Aprobado'),(2,1,'test 2','2017-05-12','2017-05-23','Aprobado'),(3,1,'12345','2017-05-19','2017-05-18','Aprobado'),(4,4,'rrrr','2017-05-19','2017-05-13','En proceso'),(5,6,'1212121','2017-05-19','2017-05-27','Aprobado'),(6,4,'hhhhhh','2017-05-13','2017-05-20','Aprobado');
 
 /*Table structure for table `type_document` */
 
@@ -224,7 +228,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`document`,`name`,`last_name`,`date`,`password`,`type_user`,`type_document`,`mail`) values (5,'1','admin','admin','2017-05-03','admin',2,2,'admin@admin.com'),(7,'2','12121','12121','2017-05-02','1234',1,1,'121212@wqwq.com'),(8,'3','otro','otro','2017-05-12','otro',1,1,'otro@otro.com'),(9,'4','mas','mas','2017-05-10','mas',1,1,'mas@mas.com'),(11,'5','1212','1212','2017-05-12','1212',1,1,'1212@algo.com'),(43,'12345','Johnny','Salazar','2017-05-09','123',1,1,'alexander9052@gmail.com'),(44,'123456','asSs','sdas','2017-05-03','1234',2,1,'aahahah@djdj.com');
+insert  into `user`(`id`,`document`,`name`,`last_name`,`date`,`password`,`type_user`,`type_document`,`mail`) values (5,'1','admin','admin','2017-05-03','admin',2,2,'admin@admin.com'),(7,'2','12121','12121','2017-05-02','1234',1,1,'121212@wqwq.com'),(8,'3','otro','otro','2017-05-12','otro',1,1,'otro@otro.com'),(9,'4','mas','mas','2017-05-10','mas',1,1,'mas@mas.com'),(11,'5','1212','1212','2017-05-12','5',1,1,'5@5.5'),(43,'12345','Johnny','Salazar','2017-05-09','123',1,1,'alexander9052@gmail.com'),(44,'123456','asSs','sdas','2017-05-03','1234',2,1,'aahahah@djdj.com');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
