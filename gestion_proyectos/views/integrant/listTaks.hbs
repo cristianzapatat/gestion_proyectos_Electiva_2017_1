@@ -23,29 +23,83 @@
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>Descripción</th>
             <th>Inicio</th>
             <th>Fin</th>
-            <th style="width: 120px;">Tareas</th>
+            <th>Estado</th>
+            <th style="width: 120px;">Recursos</th>
           </tr>
         </thead>
         <tbody>
           {{#each taks}}
             <tr>
               <td>{{name}}</td>
-              <td>{{description}}</td>
               <td>{{start}}</td>
               <td>{{end}}</td>
+              <td>{{state}}</td>
               <td style="width: 120px;">
                 <ul class="list-buttons">
                   <li>
-                    <a href="/listactivity/get/{{id}}" class="btn btn-info btn-block" title="Ver">
+                    <a href="/listtask/get/{{id}}" class="btn btn-info btn-block" title="Ver">
                       <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a data-toggle="modal" data-target="#editTask{{id}}" class="btn btn-warning btn-block">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
                   </li>
                 </ul>
               </td>
             </tr>
+            <div id="editTask{{id}}" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Editar Tarea</h4>
+                  </div>
+                  <form class="" action="/listtask/edit" method="post">
+                    <input type="hidden" name="id" id="id" value="{{id}}">
+                    <div class="modal-body row">
+                      <div class="col-md-12 form-group">
+                        <label for="name">Nombre de la tarea</label>
+                        <input type="text" name="name" id="name" class="form-control" value="{{name}}" disabled>
+                      </div>
+                      <div class="col-md-12 form-group">
+                        <label for="start">Fecha de inicio</label>
+                        <input type="text" name="start" id="start" class="form-control" value="{{start}}" disabled>
+                      </div>
+                      <div class="col-md-12 form-group">
+                        <label for="end">Fecha de fin</label>
+                        <input type="text" name="end" id="end" class="form-control" value="{{end}}" disabled>
+                      </div>
+                      <div class="col-md-12 form-group">
+                        <select class="form-control" name="state" id="state" required>
+                        <option value="Aprobado" {{#if aprobado}}selected{{/if}}>Aprobado</option>
+                        <option value="Iniciado" {{#if iniciado}}selected{{/if}}>Iniciado</option>
+                        <option value="Procesando" {{#if proceso}}selected{{/if}}>En proceso</option>
+                        <option value="Finalizado" {{#if finalizado}}selected{{/if}}>Finalizado</option>
+                      </select>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <div class="row">
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-3">
+                          <button type="button" class="btn btn-block btn-flat btn-info" data-dismiss="modal">Cancelar</button>
+                        </div>
+                        <div class="col-md-3">
+                          <input type="submit" class="btn btn-block btn-flat btn-warning" name="submit" value="Editar">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           {{/each}}
         </tbody>
       </table>

@@ -161,6 +161,19 @@ router.get('/edit/:id', (req, res) => {
                                 temp += reserves[i].resource + ",";
                               }
                               temp = temp.substring(0, (temp.length - 1));
+                              //seleccionar estado
+                              if (task[0].state == 'Aprobado') {
+                                task[0]['aprobado'] = true;
+                              }
+                              if (task[0].state == 'Iniciado') {
+                                task[0]['iniciado'] = true;
+                              }
+                              if (task[0].state == 'Procesando') {
+                                task[0]['proceso'] = true;
+                              }
+                              if (task[0].state == 'Finalizado') {
+                                task[0]['finalizado'] = true;
+                              }
                               res.render('manager/tasks/createEdit', {
                                 user: req.session.user[0],
                                 color: 'warning',
@@ -326,6 +339,88 @@ router.get('/list/:id', (req, res) => {
                 });
               }
             });
+          }
+        });
+      } else {
+        res.redirect('/task/list');
+      }
+    }
+  }
+});
+
+router.get('/listresources', (req, res) => {
+  res.redirect('/task/list');
+});
+
+router.get('/listresources/:id', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let id = req.params.id;
+      if (util.isNotEmptyNotNull(id)) {
+        let array = [id, req.session.user[0].id];
+        db.execute(queries.selectTask, array, (__fail, task) => {
+          if (__fail) {
+            res.redirect('/');
+          } else {
+            if (task.length > 0) {
+              let ids = [id];
+              db.execute(queries.listResourcesByTask, ids, (error, resources) => {
+                if (error) {
+                  res.redirect('/task/list');
+                } else {
+                  res.render('manager/tasks/listResources', {
+                    user: req.session.user[0],
+                    resources: resources,
+                    task: task[0].name
+                  });
+                }
+              });
+            } else {
+              res.redirect('/task/list');
+            }
+          }
+        });
+      } else {
+        res.redirect('/task/list');
+      }
+    }
+  }
+});
+
+router.get('/delete', (req, res) => {
+  res.redirect('/task/list');
+});
+
+router.get('/delete/:id', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let id = req.params.id;
+      if (util.isNotEmptyNotNull(id)) {
+        let array = [id, req.session.user[0].id];
+        db.execute(queries.selectTask, array, (__fail, task) => {
+          if (__fail) {
+            res.redirect('/');
+          } else {
+            if (task.length > 0) {
+              let ids = [id];
+              db.execute(queries.deleteTask, ids, (error, resources) => {
+                if (error) {
+                  res.redirect('/');
+                } else {
+                  res.redirect('/task/list');
+                }
+              });
+            } else {
+              res.redirect('/task/list');
+            }
           }
         });
       } else {
