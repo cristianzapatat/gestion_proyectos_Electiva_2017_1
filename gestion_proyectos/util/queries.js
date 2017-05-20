@@ -147,6 +147,16 @@ exports.editTask = "update task set activity = ?, name = ?, start = ?, end = ?, 
 //eliminar los recursos de una tarea
 exports.deleteResourceByTask = "delete from reserve where task = ?";
 
+//query para listar todas las Tareas
+exports.listAllTasks = "select t.id, t.name, t.activity, DATE_FORMAT(t.start, '%Y-%m-%d') as start, DATE_FORMAT(t.end, '%Y-%m-%d') as end," +
+  "t.state, p.name as project_name, p.id as project_id, a.name as activity_name from task t " +
+  "join activity a on t.activity = a.id join project p on a.project = p.id where p.user = ?";
+
+//query para listar todas las Tareas por actividad
+exports.listTaskByActivity = "select t.id, t.name, t.activity, DATE_FORMAT(t.start, '%Y-%m-%d') as start, DATE_FORMAT(t.end, '%Y-%m-%d') as end," +
+  "t.state, p.name as project_name, p.id as project_id, a.name as activity_name from task t " +
+  "join activity a on t.activity = a.id join project p on a.project = p.id where p.user = ? and a.id = ?";
+
 //---------------------------------------Reuniones-----------------------------
 
 //listar todas las reuniones según el usuario logeado

@@ -1,16 +1,15 @@
 <section class="content-header" style="position: relative;">
   <h1 class="flex-horizontal-start">
     <b style="margin-right:2%;">Lista de tareas</b>
-    <input type="hidden" id="json" value="{{activities}}">
+    <input type="hidden" id="json" name="json" value="{{activities}}">
     <input type="hidden" id="activity_id" value="{{activity_id}}">
-    <select class="form-control" name="project" required style="width: 20%; margin-right:10px;">
+    <select class="form-control" name="project" id="project" required style="width: 20%; margin-right:10px;">
       <option value="-1">Proyectos</option>
       {{#each projects}}
       <option value="{{id}}" {{#if select}}selected{{/if}}>{{name}}</option>
       {{/each}}
     </select>
-    <select class="form-control" name="activity" required style="width: 20%;">
-      <option value="-1">Actividades</option>
+    <select class="form-control" name="activity" id="activity" required style="width: 20%;">
     </select>
   </h1>
   <ol class="breadcrumb">
@@ -40,7 +39,7 @@
           </tr>
         </thead>
         <tbody>
-          {{#each activities}}
+          {{#each tasks}}
             <tr>
               <td>{{project_name}}</td>
               <td>{{activity_name}}</td>
@@ -101,27 +100,61 @@
   </div>
 </section>
 <script type="text/javascript">
-  var json= JSON.parse($('#json').val());
-  var id=parseInt($('#project').val());
+  var json = JSON.parse($('#json').val());
+  $('#activity').empty();
+  var id = parseInt($('#project').val());
+
   for (var i = 0; i < json.length; i++) {
-    if (id==json[i].project) {
-      if (json[i].id==parseInt($('#activity_id').val())) {
+    if (id == json[i].project) {
+      if (json[i].id == parseInt($('#activity_id').val())) {
         $("#activity").append(new Option(json[i].name, json[i].id, true, true));
       } else {
         $("#activity").append(new Option(json[i].name, json[i].id));
       }
     }
   }
-</script>
-<!--<script type="text/javascript">
+
+  if ($('#project').val() === '-1') {
+    $('#activity').addClass('disable-item');
+  } else {
+    $('#activity').removeClass('disable-item');
+  }
+
   $(function() {
     // bind change event to select
-    $('.float-select').on('change', function() {
-      var url = '/activity/list/' + $('.float-select').val(); // get selected value
+    $('#project').on('change', function() {
+      $('#activity').empty();
+      var value = parseInt($('#project').val());
+      for (var i = 0; i < json.length; i++) {
+        if (value === json[i].project) {
+          $("#activity").append(new Option(json[i].name, json[i].id));
+        }
+      }
+
+      var url = '/task/list/' + $('#activity').val(); // get selected value
       if (url) { // require a URL
-        window.location = url; // redirect
+        if ($('#project').val() !== '-1') {
+          window.location = url; // redirect
+        } else {
+          window.location = '/task/list';
+        }
+        return false;
+      }
+    });
+  });
+
+  $(function() {
+    // bind change event to select
+    $('#activity').on('change', function() {
+      var url = '/task/list/' + $('#activity').val(); // get selected value
+      if (url) { // require a URL
+        if ($('#project').val() !== '-1') {
+          window.location = url; // redirect
+        } else {
+          window.location = '/task/list';
+        }
       }
       return false;
     });
   });
-</script>-->
+</script>

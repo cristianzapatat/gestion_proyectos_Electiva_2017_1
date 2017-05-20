@@ -237,4 +237,102 @@ router.post('/edit', (req, res) => {
   }
 });
 
+router.get('/list', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let user = [req.session.user[0].id];
+      db.execute(queries.listProjectByUser, user, (error, projects) => {
+        if (error) {
+          res.redirect('/');
+        } else {
+          db.execute(queries.listAllActivities, user, (__error, activities) => {
+            if (__error) {
+              res.redirect('/');
+            } else {
+              let ids = [req.session.user[0].id];
+              db.execute(queries.listAllTasks, ids, (err, tasks) => {
+                if (err) {
+                  res.redirect('/');
+                } else {
+                  res.render('manager/tasks/list', {
+                    projects: projects,
+                    activities: JSON.stringify(activities),
+                    tasks: tasks,
+                    user: req.session.user[0]
+                  })
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  }
+});
+
+router.get('/list/:id', (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/');
+  } else {
+    if (!req.session.user[0].state) {
+      res.redirect('/');
+    } else {
+      let id = req.params.id;
+      if (util.isNotEmptyNotNull(id)) {
+        let user = [req.session.user[0].id];
+        db.execute(queries.listProjectByUser, user, (error, projects) => {
+          if (error) {
+            res.redirect('/');
+          } else {
+            db.execute(queries.listAllActivities, user, (__error, activities) => {
+              if (__error) {
+                res.redirect('/');
+              } else {
+                let ids = [req.session.user[0].id, id];
+                db.execute(queries.selectActivity, ids, (fail, activity) => {
+                  if (fail) {
+                    res.redirect('/');
+                  } else {
+                    if (activity.length > 0) {
+                      let idProject = activity[0].project;
+                      let idActivity = activity[0].id;
+                      db.execute(queries.listTaskByActivity, ids, (err, tasks) => {
+                        if (err) {
+                          res.redirect('/');
+                        } else {
+                          for (var i = 0; i < projects.length; i++) {
+                            if (projects[i].id == idProject) {
+                              projects[i]['select'] = true;
+                              break;
+                            }
+                          }
+                          res.render('manager/tasks/list', {
+                            projects: projects,
+                            activities: JSON.stringify(activities),
+                            tasks: tasks,
+                            activity_id: idActivity,
+                            user: req.session.user[0]
+                          })
+                        }
+                      });
+                    } else {
+                      res.redirect('/task/list');
+                    }
+                  }
+                });
+              }
+            });
+          }
+        });
+      } else {
+        res.redirect('/task/list');
+      }
+    }
+  }
+});
+
 module.exports = router;
